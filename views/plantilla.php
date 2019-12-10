@@ -6,7 +6,12 @@ if ($vistasR == "./views/content/reporte-view.php"){
     
     require_once './views/content/reporte-view.php';
     
-}else{
+}elseif($vistasR == "./views/content/arc-view.php"){
+
+    require_once './views/content/arc-view.php';
+
+}
+else{
 ?>
 
 <!DOCTYPE html>
