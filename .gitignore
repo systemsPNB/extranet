@@ -1,2 +1,3 @@
-core/
+core/confiGeneral.php
+core/mainModel.php
 database/

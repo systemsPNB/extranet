@@ -12,7 +12,7 @@ $user = new ajaxController();
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <h1>Seleccione Su Solicitud</h1>
+                        <h1>Seleccione su solicitud</h1>
                         <hr>
 
                         <!-- <p>Formulario de búsqueda de constancias</p> -->
