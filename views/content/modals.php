@@ -102,7 +102,7 @@
                                     <div class="form-group">
 
                                         <label for="frm_pass">Contraseña</label>
-                                        <input type="password" class="form-control" name="frm_pass" id="frm_pass">
+                                        <input type="password" class="form-control" name="frm_pass" id="frm_pass" autocomplete="on">
 
                                     </div>
                                 </div>

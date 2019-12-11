@@ -16,12 +16,15 @@ $user = new ajaxController();
                         <hr>
 
                         <!-- <p>Formulario de búsqueda de constancias</p> -->
-                        <select>
+                        <select id="soli">
+                            <option value="">Seleccione</option>
                             <option value="1">ARC</option>
                             <option value="2">Constancia</option>
-                            <option value="2">Recibo Pago</option>
+                            <option value="3">Recibo Pago</option>
                         </select>
-
+                        
+                        <button type="button" id="gen">Gerenar</button>
+                       
                     </div>
                 </div>
             </div>
