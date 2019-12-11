@@ -3,8 +3,8 @@
 const SERVER = "localhost options='--client_encoding=UTF8'";
 const DBNAME = 'extranet';
 const DBUSER = 'postgres';
-const DBPASS = '1qaz2wsx';
-const DBPORT = 5433; // Solo para base de datos PostgreSQL
+const DBPASS = 'sistemas-cpnb';
+const DBPORT = 5432; // Solo para base de datos PostgreSQL
 // Para Bases de datos MySQL
 // const SGBD = 'mysql:host='.SERVER.';dbname='.DBNAME;
 // Para Bases de datos PostgreSQL
@@ -19,10 +19,10 @@ const SECRET_KEY = '$SWE@001';
 const SECRET_IV = '152518';
 
 // Segunda conexión
-const SERVER2 = "ipserver options='--client_encoding=UTF8'";
-const DBNAME2 = 'database';
-const DBUSER2 = 'userdatabase';
-const DBPASS2 = 'pass';
+const SERVER2 = "192.168.8.10 options='--client_encoding=UTF8'";
+const DBNAME2 = 'sigefirrhh';
+const DBUSER2 = 'postgres';
+const DBPASS2 = '12345678';
 const DBPORT2 = 5432; // Solo para base de datos PostgreSQL
 // Para Bases de datos MySQL
 // const SGBD = 'mysql:host='.SERVER.';dbname='.DBNAME;

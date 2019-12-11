@@ -13,14 +13,14 @@ if(isset($_SESSION['nivel'])){
             function Header(){
                 $this->Image('views/img/pnb.jpg',15,8,15);
                 // Arial bold 15
-                $this->SetFont('Arial', 'I', 10);
+                $this->SetFont('Arial', '', 10);
                 // $this->Ln();
                 $this->SetX(40);
                 $this->Cell(85, 4, 'REPÚBLICA BOLIVARIANA DE VENEZUELA', 0, 1, 'L');
                 $this->SetX(40);
                 $this->Cell(85, 4, 'CUERPO DE POLICÍA NACIONAL BOLIVARIANA', 0, 0, 'L');
 
-                $this->Cell(70, 4, 'Fecha', 0, 1, 'R');
+                $this->Cell(70, 4, date("d-m-Y"), 0, 1, 'R');
 
                 $this->Ln();
                 $this->Ln();
@@ -48,18 +48,23 @@ if(isset($_SESSION['nivel'])){
                 $this->Ln();
                 
                 $this->Cell(50, 4, 'ORGANISMO', 0, 0, 'L');
+                $this->SetFont('Arial', 'B', 10);
                 $this->Cell(90, 4, 'CUERPO DE POLICÍA NACIONAL BOLIVARIANA', 0, 0, 'C');
                 $this->Cell(45, 4, 'RIF G-20009327-7', 0, 1, 'R');
 
                 $this->Ln();
 
+                $this->SetFont('Arial', '', 10);
                 $this->Cell(50, 4, 'AGENTE DE RETENCIÓN', 0, 0, 'L');
+                $this->SetFont('Arial', 'B', 10);
                 $this->Cell(90, 4, 'PARRA RINCON FREDDY RAMON', 0, 0, 'C');
                 $this->Cell(45, 4, 'CÉDULA 13242402', 0, 1, 'R');
 
                 $this->Ln();
 
+                $this->SetFont('Arial', '', 10);
                 $this->Cell(50, 4, 'DIRECCIÓN', 0, 0, 'L');
+                $this->SetFont('Arial', 'B', 10);
                 $this->MultiCell(135, 4, 'AVENIDA FUERZAS ARMADAS CON CALLE HELICOIDE, ROCA TARPEYA. PARROQUIA SANTA ROSALÍA MUNICIPIO LIBERTADOR.', 0, 'J');
 
                 $this->Line(10,85,195,85);
@@ -69,33 +74,33 @@ if(isset($_SESSION['nivel'])){
                 $this->Ln();
                 $this->Ln();
 
-                $this->SetX(20);
+                $this->SetX(27);
 
 
-                $this->Cell(30,20,'MES',1,0,'C',0);
-                $this->Cell(30,10,'DEVENGADO',1,1,'C',0);
-                $this->SetX(50);
-                $this->Cell(30,10,'MENSUAL',1,0,'C',0);
+                $this->Cell(30,20,'MES',0,0,'C',0);
+                $this->Cell(30,10,'DEVENGADO',0,1,'C',0);
+                $this->SetX(57);
+                $this->Cell(30,10,'MENSUAL',0,0,'C',0);
                 $this->SetY(90);
-                $this->SetX(80);
-                $this->Cell(20,20,'% ISLR',1,0,'C',0);
-                $this->Cell(25,10,'RETENCIÓN',1,1,'C',0);
-                $this->SetX(100);
-                $this->Cell(25,10,'MENSUAL',1,0,'C',0);
-
-                $this->SetY(90);
-                $this->SetX(125);
-
-                $this->Cell(25,10,'ACUMULADO',1,1,'C',0);
-                $this->SetX(125);
-                $this->Cell(25,10,'DEVENGADO',1,0,'C',0);
+                $this->SetX(87);
+                $this->Cell(20,20,'% ISLR',0,0,'C',0);
+                $this->Cell(25,10,'RETENCIÓN',0,1,'C',0);
+                $this->SetX(107);
+                $this->Cell(25,10,'MENSUAL',0,0,'C',0);
 
                 $this->SetY(90);
-                $this->SetX(150);
+                $this->SetX(132);
 
-                $this->Cell(25,10,'ACUMULADO',1,1,'C',0);
-                $this->SetX(150);
-                $this->Cell(25,10,'RETENCIÓN',1,0,'C',0);
+                $this->Cell(25,10,'ACUMULADO',0,1,'C',0);
+                $this->SetX(132);
+                $this->Cell(25,10,'DEVENGADO',0,0,'C',0);
+
+                $this->SetY(90);
+                $this->SetX(157);
+
+                $this->Cell(25,10,'ACUMULADO',0,1,'C',0);
+                $this->SetX(157);
+                $this->Cell(25,10,'RETENCIÓN',0,1,'C',0);
 
  
             }
@@ -107,7 +112,7 @@ if(isset($_SESSION['nivel'])){
                 // Arial italic 8
                 $this->SetFont('Arial', 'B', 8);
 
-                $this->Line(10,230,195,230);
+                $this->Line(10,240,195,240);
 
                 // Título footer
                 $this->Line(10,275,57,275);
@@ -127,18 +132,27 @@ if(isset($_SESSION['nivel'])){
 
         require_once './controllers/ajaxController.php';
         $datos = new ajaxController();
-        $registros = $datos->reportepdf_controller();
+        $registros = $datos->reporte_arc();
 
-        $nro = 0;
+        foreach ($registros as $value){
 
-        // foreach ($registros as $value) { $nro++;
-        //     $pdf->Cell(15, 10, $nro, 1, 0, 'C', 0);
-        //     $pdf->Cell(25,10,$value['civ'],1,0,'C',0);
-        //     $pdf->Cell(70,10,$value[1],1,0,'C',0);
-        //     $pdf->Cell(20,10,$value[2],1,0,'C',0);
-        //     $pdf->Cell(20,10,$value[3],1,0,'C',0);
-        //     $pdf->Cell(35,10,str_replace('-', '/', date('d-m-Y', strtotime($value[4]))),1,1,'C',0);
-        // }
+            if($value[0]==1){
+                $acumulado = $value[1];
+            }else{
+                $acumulado = $value[1]+$value[1];
+            }
+
+            $mes = $datos->get_mes($value[0]);
+
+            $pdf->SetX(27);
+            $pdf->SetFont('Arial', '', 10);
+            $pdf->Cell(30,10,$mes,0,0,'C',0); // Mes
+            $pdf->Cell(30,10,$value[1],0,0,'C',0); // Sueldo mensual
+            $pdf->Cell(20,10,'0,00',0,0,'C',0);   // %isrl
+            $pdf->Cell(25,10,'0,00',0,0,'C',0);   // retención mensual
+            $pdf->Cell(25,10,$acumulado,0,0,'C',0);   // acumulado devengado
+            $pdf->Cell(25,10,'0.00',0,1,'C',0);   // acumulado retención
+        }
 
         $pdf->Output();
 

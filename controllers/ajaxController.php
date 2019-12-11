@@ -100,6 +100,69 @@ class ajaxController extends ajaxModel{
         
     }
 
+    // Reporte PDF del ARC
+    public function reporte_arc(){
+
+        return parent::reporte_arc_model();
+        
+    }
+
+    // Mostrar mes
+    public function get_mes($mes){
+
+        switch ($mes){
+            
+            case '1':
+                return 'ENERO';
+                break;
+
+            case '2':
+                return 'FEBRERO';
+                break;
+
+            case '3':
+                return 'MARZO';
+                break;
+
+            case '4':
+                return 'ABRIL';
+                break;
+
+            case '5':
+                return 'MAYO';
+                break;
+
+            case '6':
+                return 'JUNIO';
+                break;
+
+            case '7':
+                return 'JULIO';
+                break;
+
+            case '8':
+                return 'AGOSTO';
+                break;
+
+            case '9':
+                return 'SEPTIEMBRE';
+                break;
+
+            case '10':
+                return 'OCTUBRE';
+                break;
+
+            case '11':
+                return 'NOVIEMBRE';
+                break;
+
+            case '12':
+                return 'DICIEMBRE';
+                break;
+            
+        }
+    }
+
 }
 
 // Zoom users

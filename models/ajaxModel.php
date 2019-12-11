@@ -343,4 +343,26 @@ class ajaxModel extends mainModel{
 
     }
 
+    // Reporte PDF
+    protected function reporte_arc_model(){
+
+        $sql = "SELECT mes, sum(monto_asigna) FROM historicoquincena WHERE id_trabajador = 66029 AND anio = 2018 GROUP BY mes";
+
+        $result = mainModel::conexion2()->prepare($sql);
+
+        $result->execute();
+
+        if ($result->rowCount() > 0){
+
+            $datos = $result->fetchAll();
+
+            unset($result);
+            unset($conexion);
+        
+            return $datos;
+
+        }
+
+    }
+
 }
