@@ -64,7 +64,7 @@ if ($vistasR == "./views/content/reporte-view.php"){
                 require_once 'layout/footer.php'; // Pie de página
                 require_once 'content/modals.php'; // Ventanas modal
             ?>
-
+                
         </div>
     </div>
     
