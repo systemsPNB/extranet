@@ -101,9 +101,9 @@ class ajaxController extends ajaxModel{
     }
 
     // Reporte PDF del ARC
-    public function reporte_arc(){
+    public function reporte_arc($civ){
 
-        return parent::reporte_arc_model();
+        return parent::reporte_arc_model($civ);
         
     }
 
@@ -161,6 +161,13 @@ class ajaxController extends ajaxModel{
                 break;
             
         }
+    }
+
+    // Obtener datos del trabajador para mostrar en el arc
+    public function get_data_workers($civ){
+
+        return parent::get_data_workers_model($civ);
+
     }
 
 }

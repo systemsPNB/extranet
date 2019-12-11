@@ -344,9 +344,11 @@ class ajaxModel extends mainModel{
     }
 
     // Reporte PDF
-    protected function reporte_arc_model(){
+    protected function reporte_arc_model($civ){
 
-        $sql = "SELECT mes, sum(monto_asigna) FROM historicoquincena WHERE id_trabajador = 66029 AND anio = 2018 GROUP BY mes";
+        $id_trabajador = parent::consulta_simple(2,"SELECT id_trabajador FROM trabajador WHERE cedula = $civ AND estatus = 'A'",1);
+
+        $sql = "SELECT mes, sum(monto_asigna) FROM historicoquincena WHERE id_trabajador = $id_trabajador[0] AND anio = 2018 GROUP BY mes";
 
         $result = mainModel::conexion2()->prepare($sql);
 
@@ -362,6 +364,31 @@ class ajaxModel extends mainModel{
             return $datos;
 
         }
+
+    }
+
+    // Obtener datos del trabajador para mostrar en el arc
+    protected function get_data_workers_model($civ){
+
+        $sql = "SELECT cedula, primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido AS nombres FROM personal WHERE cedula = :cedula";
+
+        $result = parent::conexion2()->prepare($sql);
+
+        $result->bindValue(":cedula", $civ, PDO::PARAM_STR);
+
+        $result->execute();
+
+        if ($result->rowCount()>0){
+
+            return $result->fetch();
+
+        }else{
+
+            return $result->errorInfo();
+
+        }
+        
+
 
     }
 

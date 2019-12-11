@@ -84,4 +84,35 @@
 
         }
 
+        // parametro
+        // 1 conexion de base de datos a utilizar
+        // 2 consulta sql
+        // 3 tipo de respuesta q esperar => 1 entrega fetch y 2 fetchAll
+        protected function consulta_simple($conn,$sql,$type){
+
+            if($conn == 1){
+
+                $conexion = self::conectar();
+
+            }else {
+
+                $conexion = self::conexion2();
+
+            }
+
+            $result = $conexion->prepare($sql);
+            $result->execute();
+
+            if ($type==1){
+
+                return $result->fetch();
+
+            }else{
+
+                return $result->fetchAll();
+
+            }
+                
+        }
+
     }

@@ -2,6 +2,15 @@
 
 session_start(['name' => 'NSW']);
 
+require_once './controllers/ajaxController.php';
+$datos = new ajaxController();
+$trabajador = $datos->get_data_workers('24280430');
+$registros = $datos->reporte_arc('24280430');
+
+$GLOBALS['cedula'] = $trabajador[0];
+$GLOBALS['nombres'] = $trabajador[1];
+
+
 if(isset($_SESSION['nivel'])){
 
     if($_SESSION['nivel']==1){
@@ -11,6 +20,7 @@ if(isset($_SESSION['nivel'])){
         class PDF extends FPDF{
             // Cabecera de página
             function Header(){
+
                 $this->Image('views/img/pnb.jpg',15,8,15);
                 // Arial bold 15
                 $this->SetFont('Arial', '', 10);
@@ -36,8 +46,8 @@ if(isset($_SESSION['nivel'])){
                 $this->Ln();
                 $this->Ln();
 
-                $this->Cell(40, 4, 'CÉDULA', 0, 0, 'L');
-                $this->Cell(90, 4, 'NOMBRE', 0, 0, 'C');
+                $this->Cell(40, 4, $GLOBALS['cedula'], 0, 0, 'L');
+                $this->Cell(90, 4, $GLOBALS['nombres'], 0, 0, 'C');
                 $this->Cell(55, 4, 'RIF', 0, 1, 'R');
                 $this->Ln();
                 
@@ -76,7 +86,6 @@ if(isset($_SESSION['nivel'])){
 
                 $this->SetX(27);
 
-
                 $this->Cell(30,20,'MES',0,0,'C',0);
                 $this->Cell(30,10,'DEVENGADO',0,1,'C',0);
                 $this->SetX(57);
@@ -102,11 +111,11 @@ if(isset($_SESSION['nivel'])){
                 $this->SetX(157);
                 $this->Cell(25,10,'RETENCIÓN',0,1,'C',0);
 
- 
             }
 
             // Pie de página
             function Footer(){
+
                 // Posición:a 1,5 cm del final
                 $this->SetY(-20);
                 // Arial italic 8
@@ -120,6 +129,7 @@ if(isset($_SESSION['nivel'])){
                 $this->Cell(50, 5, '13242405', 0, 1, 'L');
                
             }
+
         }
 
         $fecha = date("d-m-Y");
@@ -129,10 +139,6 @@ if(isset($_SESSION['nivel'])){
         $pdf->AliasNbPages();
         $pdf->AddPage();
         $pdf->SetFont('Arial', 'B', 10);
-
-        require_once './controllers/ajaxController.php';
-        $datos = new ajaxController();
-        $registros = $datos->reporte_arc();
 
         foreach ($registros as $value){
 
