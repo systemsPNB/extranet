@@ -11,7 +11,7 @@ if(isset($_SESSION['nivel'])){
         class PDF extends FPDF{
             // Cabecera de página
             function Header(){
-                $this->Image('views/img/logo_cpnb-min.jpg',15,8,23);
+                $this->Image('views/img/pnb.jpg',15,8,15);
                 // Arial bold 15
                 $this->SetFont('Arial', 'I', 10);
                 // $this->Ln();

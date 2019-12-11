@@ -208,7 +208,7 @@ $(function () {
 			switch ($("#soli").val()) {
 				case "1":
 					// console.log("es 1");
-					window.open("../myaccount", "_blank");
+					window.open("../arc", "_blank");
 					break;
 
 				case "2":
@@ -231,7 +231,7 @@ $(function () {
 
 
 
-}); // Cierre de la función ready
+}); // Cierre de la función PDF
 
 
 
