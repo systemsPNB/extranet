@@ -10,8 +10,10 @@ if ($vistasR == "./views/content/reporte-view.php"){
 
     require_once './views/content/arc-view.php';
 
-}
-else{
+} elseif($vistasR == "./views/content/constancia-view.php"){
+
+    require_once './views/content/constancia-view.php';
+}else{
 ?>
 
 <!DOCTYPE html>

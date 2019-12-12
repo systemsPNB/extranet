@@ -213,7 +213,7 @@ $(function () {
 
 				case "2":
 					// console.log("es 2");
-					window.open("../users", "_blank");
+					window.open("../constancia", "_blank");
 					break;
 
 				case "3":
