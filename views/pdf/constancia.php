@@ -1,5 +1,5 @@
 <?php
-// $peticionAjax = true;
+$peticionAjax = true;
 session_start(['name' => 'NSW']);
 
 require_once '../controllers/ajaxController.php';
