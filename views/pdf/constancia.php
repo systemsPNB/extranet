@@ -90,8 +90,8 @@ Viernes, 21 de Septiembre de 2012
 
     </h1>
     <br>
-    <p style="text-indent: 30">
-        Quien suscribe, DIRECTOR DE LA OFICINA DE RECURSOS HUMANOS (E) del CUERPO DE
+    <p style="text-indent: 30;" align:"center">
+        Quien suscribe, DIRECTOR DE LA OFICINA DE RECURSOS HUMANOS (E) del CUERPO <br> DE 
         POLICÍA NACIONAL BOLIVARIANA, hace constar que el(la) ciudadano(a) <strong> <?php echo $GLOBALS['nombres']; ?> </strong>, titular de la cedula de identidad
         No. <strong> <?php echo $GLOBALS['cedula']; ?> </strong>, codigo <strong> <?php echo $GLOBALS['cedula']; ?> </strong>
         desempeñando en la actualidad el cargo de, presta sus servicios en este organismo desde el <strong> <?php echo $GLOBALS['cedula']; ?> </strong> OFICIAL, con una asignacion mensual d

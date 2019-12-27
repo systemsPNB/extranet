@@ -12,9 +12,13 @@
 
         <ul class="navbar-nav mr-auto">
 
-            <!-- <li class="nav-item">
-                <a class="nav-link" href="<?= SERVERURL; ?>search/"> <i class="icon-search"></i> Buscar trabajador</a>
-            </li> -->
+            <li class="nav-item">
+                <a class="nav-link" href="#"> <i class="icon-search"></i> Informacion</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#"> <i class="icon-search"></i> Leyes</a>
+            </li>
 
             <?php if($_SESSION['nivel'] == 1){ ?>
 
