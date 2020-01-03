@@ -19,10 +19,19 @@ class searchModel extends mainModel{
 
         $result->execute();
 
-        $datos = $result->fetch();
+        if ($result->rowCount()>0){
 
-        return $datos;
+            $datos = $result->fetch();
+            unset($result);
+            unset($conexion);
+            return $datos;
 
+        }else{
+
+            return $result->errorInfo();
+
+        }
+        
     }
 
 }

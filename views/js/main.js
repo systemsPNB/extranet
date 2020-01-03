@@ -1,7 +1,7 @@
 $(function () {
 
 	// Elementos ocultos
-	$("#my_account_save_name,#my_account_save_pass,#frmEditUser,#btn-editsave-user").hide();
+	$("#my_account_save_name,#my_account_save_pass,#frmEditUser,#btn-editsave-user,.data_works").hide();
 
 	// Elementos bloqueados
 	$('#my_a_name,#my_a_pass,#my_a_pass_confirm,#my_a_pass_actual').attr('disabled', true);
@@ -189,9 +189,12 @@ $(function () {
 		}
 
 	});
-	// Este boton nos ayudara a generar los reporte PDF atravez de un select 
+
+	// Este boton nos ayudara a generar los reporte PDF a traves de un select
 	$("#gen").attr('disabled', 'disabled');
+
 	var valor = $("#soli").val();
+
 	$('#soli').on({
 		change: function () {
 
@@ -205,35 +208,68 @@ $(function () {
 	$('#gen').on({
 		click: function () {
 
-			switch ($("#soli").val()) {
-				case "1":
-					// console.log("es 1");
-					window.open("../arc", "_blank");
-					break;
-
-				case "2":
-					// console.log("es 2");
-					window.open("../controllers/constanciaController.php", "_blank");
-					break;
-
-				case "3":
-					// console.log("es 3");
-					window.open("../myaccount", "_blank");
-					break;
-
-				default:
-					break;
-			}
+			
 			event.preventDefault();
 	
 		}
 	});
 
+	const reporte = document.getElementById('gen');
+	if (reporte){
+
+		reporte.addEventListener('click', ()=>{
+
+			let type = document.getElementById("soli").value;
+			let idwork = document.getElementById("res_search_idwork").value;
+
+			switch (type){
+
+				case "1":
+					window.open(`../arc/${idwork}`, `_blank`);
+					break;
+
+				case "2":
+					window.open(`../constancia/${idwork}`, `_blank`);
+					break;
+
+				case "3":
+					window.open("../myaccount", "_blank");
+					break;
+
+			}
+
+		});
+
+	}
 
 
-}); // Cierre de la función PDF
+	// Buscar trabajador para posteriormente generar sus reportes
+	const buscar = document.getElementById('search_work');
 
+	if (buscar) {
+		buscar.addEventListener('click', () => {
+			let cedula = document.getElementById('civ_work').value;
+			$.ajax({
 
+				type: "post",
+				url: "../controllers/searchController.php",
+				data: { civ : cedula },
+				success: function (r){
+
+					r = JSON.parse(r);
+					$(".data_works").show();
+					document.getElementById('res_search_name').innerHTML = `<b>${r.nombres}</b>`;
+					document.getElementById('res_search_civ').innerHTML = `<b>${r.cedula}</b>`;
+					document.getElementById('res_search_idwork').value = r.id_trabajador;
+
+				}
+
+			});
+		});
+	}
+		
+
+}); // Fin de Jquery
 
 //función que comprueba las dos contraseñas
 function coincidePassword() {
@@ -490,30 +526,3 @@ function graficaHome(datosX1, datosY1, datosX2, datosY2) {
 
 	Plotly.newPlot('graficaLinea', data, layout, {}, { showSendToCloud: true });
 }
-
-// Buscar trabajador
-const buscar = () => {
-
-	let cedula = document.getElementById("civ");
-	let rcedula = document.getElementById("rciv");
-	let rnombres = document.getElementById("rnombres");
-	let rjquia = document.getElementById("rjquia");
-
-
-	$.get("../controllers/searchController.php", { civ: cedula.value }, function (r) {
-		r = JSON.parse(r);
-		console.log(r);
-		rcedula.innerHTML = r.cedula;
-		rnombres.innerHTML = r.nombres;
-		rjquia.innerHTML = r.jquia;
-
-	});
-
-}
-
-
-//Comprobar si soporta fetch
-/*
-if(window.fetch=!undefined) console.log('ok')
-else console.log('no');
-*/

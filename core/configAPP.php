@@ -3,8 +3,8 @@
 const SERVER = "localhost options='--client_encoding=UTF8'";
 const DBNAME = 'extranet';
 const DBUSER = 'postgres';
-const DBPASS = '1qaz2wsx';
-const DBPORT = 5433; // Solo para base de datos PostgreSQL
+const DBPASS = 'sistemas-cpnb';
+const DBPORT = 5432; // Solo para base de datos PostgreSQL
 // Para Bases de datos MySQL
 // const SGBD = 'mysql:host='.SERVER.';dbname='.DBNAME;
 // Para Bases de datos PostgreSQL

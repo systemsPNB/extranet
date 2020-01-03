@@ -2,10 +2,15 @@
 
 session_start(['name' => 'NSW']);
 
+$id_trabajador = explode("/", $_GET['views']);
+
 require_once './controllers/ajaxController.php';
+
 $datos = new ajaxController();
-$trabajador = $datos->get_data_workers('24280430');
-$registros = $datos->reporte_arc('24280430');
+
+$trabajador = $datos->get_data_workers($id_trabajador[1]);
+
+$registros = $datos->reporte_arc($id_trabajador[1]);
 
 $GLOBALS['cedula'] = $trabajador[0];
 $GLOBALS['nombres'] = $trabajador[1];
