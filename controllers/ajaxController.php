@@ -108,65 +108,98 @@ class ajaxController extends ajaxModel{
     }
 
     // Mostrar mes
-    public function get_mes($mes){
+    public static function get_mes($mes){
 
-        switch ($mes){
-            
+        switch($mes){
             case '1':
-                return 'ENERO';
+                $mes = "ENERO";
                 break;
-
             case '2':
-                return 'FEBRERO';
+                $mes = "FEBRERO";
                 break;
-
             case '3':
-                return 'MARZO';
+                $mes = "MARZO";
                 break;
-
             case '4':
-                return 'ABRIL';
+                $mes = "ABRIL";
                 break;
-
             case '5':
-                return 'MAYO';
+                $mes = "MAYO";
                 break;
-
             case '6':
-                return 'JUNIO';
+                $mes = "JUNIO";
                 break;
-
             case '7':
-                return 'JULIO';
+                $mes = "JULIO";
                 break;
-
             case '8':
-                return 'AGOSTO';
+                $mes = "AGOSTO";
                 break;
-
             case '9':
-                return 'SEPTIEMBRE';
+                $mes = "SEPTIEMBRE";
                 break;
-
             case '10':
-                return 'OCTUBRE';
+                $mes = "OCTUBRE";
                 break;
-
             case '11':
-                return 'NOVIEMBRE';
+                $mes = "NOVIEMBRE";
                 break;
-
             case '12':
-                return 'DICIEMBRE';
-                break;
-            
+                $mes = "DICIEMBRE";
+                break;                
         }
+
+        return $mes;
+
     }
 
-    // Obtener datos del trabajador para mostrar en el arc
+    // Obtener datos del trabajador para mostrar en el arc y constancia de trabajo
     public function get_data_workers($civ){
 
         return parent::get_data_workers_model($civ);
+
+    }
+
+    // Obtener datos del trabajador para mostrar en el arc y constancia de trabajo
+    public function get_data_pay_workers($id_trabajador){
+
+        switch (date('m')) {
+            case '01':
+                $mes = 1;
+                break;
+            case '02':
+                $mes = 2;
+                break;
+            case '03':
+                $mes = 3;
+                break;
+            case '04':
+                $mes = 4;
+                break;
+            case '05':
+                $mes = 5;
+                break;
+            case '06':
+                $mes = 6;
+                break;
+            case '07':
+                $mes = 7;
+                break;
+            case '08':
+                $mes = 8;
+                break;
+            case '09':
+                $mes = 9;
+                break;
+        }
+
+        if (date('m') <= 9){
+            $mes;
+        }else{
+            $mes = date('m');
+        }
+
+        return parent::get_data_pay_workers_model(array($id_trabajador,$mes));
 
     }
 
