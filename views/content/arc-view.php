@@ -11,6 +11,7 @@ $datos = new ajaxController();
 $trabajador = $datos->get_data_workers($id_trabajador[1]);
 
 $registros = $datos->reporte_arc($id_trabajador[1]);
+$deducciones = $datos->deducciones_reporte_arc($id_trabajador[1]);
 
 $GLOBALS['cedula'] = $trabajador[0];
 $GLOBALS['nombres'] = $trabajador[1];
@@ -91,30 +92,33 @@ if(isset($_SESSION['nivel'])){
 
                 $this->SetX(27);
 
-                $this->Cell(30,20,'MES',0,0,'C',0);
-                $this->Cell(30,10,'DEVENGADO',0,1,'C',0);
+                $this->Cell(30,5,'MES',0,0,'L',0);
+                $this->Cell(30,5,'DEVENGADO',0,1,'C',0);
                 $this->SetX(57);
-                $this->Cell(30,10,'MENSUAL',0,0,'C',0);
+                $this->Cell(30,5,'MENSUAL',0,0,'C',0);
                 $this->SetY(90);
                 $this->SetX(87);
-                $this->Cell(20,20,'% ISLR',0,0,'C',0);
-                $this->Cell(25,10,'RETENCIÓN',0,1,'C',0);
+                $this->Cell(20,5,'% ISLR',0,0,'C',0);
+                $this->Cell(25,5,'RETENCIÓN',0,1,'C',0);
                 $this->SetX(107);
-                $this->Cell(25,10,'MENSUAL',0,0,'C',0);
+                $this->Cell(25,5,'MENSUAL',0,0,'C',0);
 
                 $this->SetY(90);
                 $this->SetX(132);
 
-                $this->Cell(25,10,'ACUMULADO',0,1,'C',0);
+                $this->Cell(25,5,'ACUMULADO',0,1,'C',0);
                 $this->SetX(132);
-                $this->Cell(25,10,'DEVENGADO',0,0,'C',0);
+                $this->Cell(25,5,'DEVENGADO',0,0,'C',0);
 
                 $this->SetY(90);
                 $this->SetX(157);
 
-                $this->Cell(25,10,'ACUMULADO',0,1,'C',0);
+                $this->Cell(25,5,'ACUMULADO',0,1,'C',0);
                 $this->SetX(157);
-                $this->Cell(25,10,'RETENCIÓN',0,1,'C',0);
+                $this->Cell(25,5,'RETENCIÓN',0,1,'C',0);
+
+                $this->Line(10,101,195,101);
+
 
             }
 
@@ -126,7 +130,7 @@ if(isset($_SESSION['nivel'])){
                 // Arial italic 8
                 $this->SetFont('Arial', 'B', 8);
 
-                $this->Line(10,240,195,240);
+                $this->Line(10,220,195,220);
 
                 // Título footer
                 $this->Line(10,275,57,275);
@@ -150,20 +154,48 @@ if(isset($_SESSION['nivel'])){
             if($value[0]==1){
                 $acumulado = $value[1];
             }else{
-                $acumulado = $value[1]+$value[1];
+                $acumulado += $value[1];
+                // number_format(,2);
             }
 
             $mes = $datos->get_mes($value[0]);
 
             $pdf->SetX(27);
             $pdf->SetFont('Arial', '', 10);
-            $pdf->Cell(30,10,$mes,0,0,'C',0); // Mes
-            $pdf->Cell(30,10,$value[1],0,0,'C',0); // Sueldo mensual
-            $pdf->Cell(20,10,'0,00',0,0,'C',0);   // %isrl
-            $pdf->Cell(25,10,'0,00',0,0,'C',0);   // retención mensual
-            $pdf->Cell(25,10,$acumulado,0,0,'C',0);   // acumulado devengado
+            $pdf->Cell(30,10,$mes,0,0,'L',0); // Mes
+            $pdf->Cell(30,10,number_format($value[1],2),0,0,'C',0); // Sueldo mensual
+            $pdf->Cell(20,10,'0.00',0,0,'C',0);   // %isrl
+            $pdf->Cell(25,10,'0.00',0,0,'C',0);   // retención mensual
+            $pdf->Cell(25,10,number_format($acumulado,2),0,0,'C',0);   // acumulado devengado
             $pdf->Cell(25,10,'0.00',0,1,'C',0);   // acumulado retención
         }
+
+        $pdf->Ln(3);
+
+        foreach ($deducciones as $deduccion){
+
+            switch ($deduccion[0]) {
+                case 'SEGURO PARO FORZOSO':
+                    $concepto = "ACUMULADO SPF";
+                    break;
+                case 'FON. DE AHORRO OBLIG. VIVIENDA':
+                    $concepto = "ACUMULADO LPH";
+                    break;
+                case 'FONDO DE PENSION Y JUBILACION':
+                    $concepto = "ACUMULADO FJU ";
+                    break;
+                case 'SEGURO SOCIAL OBLIG.':
+                    $concepto = "ACUMULADO SSO";
+                    break;
+                
+            }
+
+            $pdf->Cell(35, 5, $concepto, 0, 0, 'L');
+            $pdf->Cell(45, 5, number_format($deduccion[1],2), 0, 1, 'C');
+
+        }
+
+        $pdf->Line(10,246,195,246);
 
         $pdf->Output();
 

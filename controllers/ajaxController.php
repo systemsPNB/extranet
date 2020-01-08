@@ -107,6 +107,13 @@ class ajaxController extends ajaxModel{
         
     }
 
+    // Calculo del acumulado deducciones para ARC
+    public function deducciones_reporte_arc($idwork){
+
+        return parent::report_deducciones_arc_model($idwork);
+        
+    }
+
     // Mostrar mes
     public static function get_mes($mes){
 
@@ -203,7 +210,16 @@ class ajaxController extends ajaxModel{
 
     }
 
+    /* // Obtener trabajadores desde el sigefirrhh e insertarlos en la tabla usuarios de extranet
+    public static function get_workers_for_users(){
+
+        return parent::get_workers_for_users_model();
+
+    } */
+
 }
+
+// ajaxController::get_workers_for_users();
 
 // Zoom users
 if (isset($_GET['zoom_user'])){
