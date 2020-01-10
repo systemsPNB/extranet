@@ -101,9 +101,16 @@ class ajaxController extends ajaxModel{
     }
 
     // Reporte PDF del ARC
-    public function reporte_arc($civ){
+    public function reporte_arc($idwork){
 
-        return parent::reporte_arc_model($civ);
+        return parent::reporte_arc_model($idwork);
+        
+    }
+
+    // Calculo del acumulado deducciones para ARC
+    public function deducciones_reporte_arc($idwork){
+
+        return parent::report_deducciones_arc_model($idwork);
         
     }
 
@@ -154,9 +161,9 @@ class ajaxController extends ajaxModel{
     }
 
     // Obtener datos del trabajador para mostrar en el arc y constancia de trabajo
-    public function get_data_workers($civ){
+    public function get_data_workers($idwork){
 
-        return parent::get_data_workers_model($civ);
+        return parent::get_data_workers_model($idwork);
 
     }
 
@@ -203,7 +210,74 @@ class ajaxController extends ajaxModel{
 
     }
 
+    /* // Obtener trabajadores desde el sigefirrhh e insertarlos en la tabla usuarios de extranet
+    public static function get_workers_for_users(){
+
+        return parent::get_workers_for_users_model();
+
+    } */
+
+    // Encriptar idwork en vista home
+    public static function encriptar_idwork($idwork){
+
+        return ajaxModel::encriptar($idwork);
+        
+    }
+
+    // Desencriptar idwork en vista home
+    public function desencriptar_idwork($idwork){
+
+        return ajaxModel::desencriptar($idwork);
+        // return parent::desencriptar($idwork);
+        
+    }
+
+    // Obtener datos del trabajador para mostrar en el arc y constancia de trabajo
+    public function get_data_pay_workers($id_trabajador){
+
+        switch (date('m')) {
+            case '01':
+                $mes = 1;
+                break;
+            case '02':
+                $mes = 2;
+                break;
+            case '03':
+                $mes = 3;
+                break;
+            case '04':
+                $mes = 4;
+                break;
+            case '05':
+                $mes = 5;
+                break;
+            case '06':
+                $mes = 6;
+                break;
+            case '07':
+                $mes = 7;
+                break;
+            case '08':
+                $mes = 8;
+                break;
+            case '09':
+                $mes = 9;
+                break;
+        }
+
+        if (date('m') <= 9){
+            $mes;
+        }else{
+            $mes = date('m');
+        }
+
+        return parent::get_data_pay_workers_model(array($id_trabajador,$mes));
+
+    }
+
 }
+
+// ajaxController::get_workers_for_users();
 
 // Zoom users
 if (isset($_GET['zoom_user'])){

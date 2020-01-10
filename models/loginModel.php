@@ -6,7 +6,7 @@ class loginModel extends mainModel{
     // Iniciar sesión
     protected function login_modelo($user,$pass){
         
-        $sql = "SELECT * FROM users WHERE civ = :user AND pass = :pass AND id_status = 1";
+        $sql = "SELECT id_user, nombre, id_rol, id_trabajador, civ FROM users WHERE civ = :user AND pass = :pass AND id_status = 1";
         
         $result = mainModel::conectar()->prepare($sql);
 
@@ -22,6 +22,8 @@ class loginModel extends mainModel{
             $_SESSION['id_user'] = $row['id_user'];
             $_SESSION['user'] = $row['nombre'];
             $_SESSION['nivel'] = $row['id_rol'];
+            $_SESSION['idwork'] = $row['id_trabajador'];
+            $_SESSION['cedula'] = $row['civ'];
 
             unset($result);
             unset($conexion);

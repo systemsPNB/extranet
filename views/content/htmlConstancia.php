@@ -10,7 +10,7 @@
             width: 300px;
             height: 300px;
             position: relative;
-            left: 230px;
+            left: 135px;
         }
     </style>
 
@@ -58,7 +58,6 @@
 
     <page_footer>
 
-        <img class="firma" src="./views/img/firma1.png">
 
         <p ALIGN="justify">
             Esta constancia ha sido emitida electronicamente, los datos reflejados estan sujetos a confirmacion a través de nuestra pagina web http://cpnb.gob.ve,
@@ -87,9 +86,28 @@
 
     <br>
 
+    <?php
+    switch ($datos[4]){
+
+        case 'M':
+            $sexo = "que el ciudadano";
+            break;
+
+        case 'F':
+            $sexo = "que la ciudadana";
+            break;
+
+        case '':
+            $sexo = "que el(la) ciudadano(a)";
+            break;
+        
+
+    }
+    ?>
+
     <p style="text-indent: 30; text-align: justify;">
         Quien suscribe, DIRECTOR DE LA OFICINA DE RECURSOS HUMANOS (E) del CUERPO DE
-        POLICÍA NACIONAL BOLIVARIANA, hace constar que el(la) ciudadano(a) <strong><?=$datos[1];?></strong>, titular de la cédula de identidad
+        POLICÍA NACIONAL BOLIVARIANA, hace constar <?=$sexo;?> <strong><?=$datos[1];?></strong>, titular de la cédula de identidad
         N°. <strong><?=$datos[0];?></strong>, desempeñando en la actualidad el cargo de <strong><?=$datos[3];?></strong>, presta sus servicios en este organismo desde el <strong><?=$datos[2];?></strong>, con una asignacion mensual discriminada de la siguiente manera:
     </p>
 
@@ -108,8 +126,8 @@
 
             <tr>
 
-                <td style="text-align: center; width: 300px;"> <?=$value[0];?> </td>
-                <td style="text-align: center; width: 300px;"> <?=$value[1];?> </td>
+                <td style="text-align: left; width: 300px;"> <?=$value[0];?> </td>
+                <td style="text-align: center; width: 300px;"> <?= number_format($value[1],2);?> </td>
                 
             </tr>
 
@@ -125,7 +143,7 @@
         <tr>
 
             <th style="text-align: center; width: 300px;">TOTAL ASIGNACIÓN</th>
-            <th style="text-align: center; width: 300px;"> <?=$total;?> </th>
+            <th style="text-align: center; width: 300px;"> <?= number_format($total,2); ?> </th>
 
         </tr>
 
@@ -143,5 +161,8 @@
     <p style="text-align: justify;">
         Constancia que se expide a solicitud de parte interesada, en Caracas a los <?= date('d') . " dias del mes de " . ajaxController::get_mes($mes) . " de " . date('Y')."."; ?>
     </p>
+
+
+    <img class="firma" src="./views/img/firma1.png">
 
 </page>

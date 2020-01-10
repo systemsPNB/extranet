@@ -1,9 +1,12 @@
 <?php
+// ini_set('max_execution_time', '300');
+// set_time_limit(300);
 if(is_file('../core/mainModel.php')){
     require_once '../core/mainModel.php';
 }else{
     require_once './core/mainModel.php';
 }
+
 
 class ajaxModel extends mainModel{
 
@@ -343,14 +346,22 @@ class ajaxModel extends mainModel{
 
     }
 
-    // Reporte PDF
-    protected function reporte_arc_model($civ){
+    // Reporte PDF del arc
+    protected function reporte_arc_model($idwork){
 
-        $id_trabajador = parent::consulta_simple(2,"SELECT id_trabajador FROM trabajador WHERE cedula = $civ AND estatus = 'A'",1);
+        $anio = date("Y")-1;
 
-        $sql = "SELECT mes, sum(monto_asigna) FROM historicoquincena WHERE id_trabajador = $id_trabajador[0] AND anio = 2018 GROUP BY mes";
+        $sql = "SELECT mes, sum(monto_asigna) FROM historicoquincena hq
+        INNER JOIN conceptotipopersonal ctp ON (hq.id_concepto_tipo_personal = ctp.id_concepto_tipo_personal)
+        INNER JOIN concepto c ON (ctp.id_concepto = c.id_concepto)
+        WHERE id_trabajador = :idwork AND anio = :anio AND c.cod_concepto IN ('0001','0410','0411','0412','0413','0414','0522','0523','0524','0525','0526','0527','0528','0529','0530','0531','0532','0533','0534','0535','0536','0537','0538','0539','0540','0541','0542','0543','0544','1500','1600','4000', '0500') GROUP BY mes ORDER BY mes";
 
         $result = parent::conexion2()->prepare($sql);
+<<<<<<< HEAD
+=======
+        $result->bindValue(":idwork", $idwork, PDO::PARAM_INT);
+        $result->bindValue(":anio", $anio, PDO::PARAM_INT);
+>>>>>>> john
 
         $result->execute();
 
@@ -367,17 +378,53 @@ class ajaxModel extends mainModel{
 
     }
 
-    // Obtener datos del trabajador para mostrar en el arc
-    protected function get_data_workers_model($civ){
+    // Calculo del acumulado deducciones para ARC
+    protected function report_deducciones_arc_model($idwork){
 
+        $anio = date("Y")-1;
+
+<<<<<<< HEAD
         $sql = "SELECT p.cedula, primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido AS nombres, fecha_ingreso, descripcion_cargo FROM personal p
         INNER JOIN trabajador t ON (p.id_personal = t.id_personal)
         INNER JOIN cargo c ON (t.id_cargo = c.id_cargo)
         WHERE p.cedula = :cedula";
+=======
+        $sql = "SELECT descripcion, sum(monto_deduce) FROM historicoquincena hq
+        INNER JOIN conceptotipopersonal ctp ON (hq.id_concepto_tipo_personal = ctp.id_concepto_tipo_personal)
+        INNER JOIN concepto c ON (ctp.id_concepto = c.id_concepto)
+        WHERE id_trabajador = :idwork AND anio = :anio AND c.cod_concepto IN ('5001','5002','5003','5004') GROUP BY descripcion";
+>>>>>>> john
+
+        $result = parent::conexion2()->prepare($sql);
+        $result->bindValue(":idwork", $idwork, PDO::PARAM_INT);
+        $result->bindValue(":anio", $anio, PDO::PARAM_INT);
+
+        $result->execute();
+
+        if ($result->rowCount() > 0){
+
+            $datos = $result->fetchAll();
+
+            unset($result);
+            unset($conexion);
+        
+            return $datos;
+
+        }
+
+    }
+
+    // Obtener datos del trabajador para mostrar en el arc y constancia
+    protected function get_data_workers_model($idwork){
+
+        $sql = "SELECT p.cedula, primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido AS nombres, fecha_ingreso, descripcion_cargo, sexo, id_trabajador FROM personal p
+        INNER JOIN trabajador t ON (p.id_personal = t.id_personal)
+        INNER JOIN cargo c ON (t.id_cargo = c.id_cargo)
+        WHERE id_trabajador = :idwork";
 
         $result = parent::conexion2()->prepare($sql);
 
-        $result->bindValue(":cedula", $civ, PDO::PARAM_STR);
+        $result->bindValue(":idwork", $idwork, PDO::PARAM_INT);
 
         $result->execute();
 
@@ -398,32 +445,36 @@ class ajaxModel extends mainModel{
         $id_trabajador = $datos[0];
         $mes = $datos[1];
 
-        // Determinar cual quincena imprimir deacuerdo al día actual
+/*         // Determinar cual quincena imprimir deacuerdo al día actual
         if(date('d') <= 10){
             $quincena = 1;
         }else{
             $quincena = 2;
-        }
+        } */
 
         $anio = date('Y');
 
         /* Si el mes es enero y el dia es menor o igual a 10 (primera quincena), entonces al año actual se le resta 1, el mes será el último del año pasado y la quincena será la última también */
-        if($mes == 01 && date('d') <= 10) {
+        /* if($mes == 01 && date('d') <= 10) {
             $anio = $anio-1;
             $mes = 12;
             $quincena = 2;
-        }
+        } */
         
-        $sql = "SELECT descripcion, monto_asigna FROM historicoquincena hq
+        $sql = "SELECT DISTINCT descripcion, SUM(monto_asigna) FROM historicoquincena hq
         INNER JOIN conceptotipopersonal ctp ON (hq.id_concepto_tipo_personal = ctp.id_concepto_tipo_personal)
         INNER JOIN concepto c ON (ctp.id_concepto = c.id_concepto)
-        WHERE id_trabajador = :id_trabajador AND anio = :anio AND mes = :mes AND semana_quincena = :quincena AND monto_asigna > 0";
+        WHERE id_trabajador = :id_trabajador AND anio = :anio AND mes = :mes AND monto_asigna > 0 GROUP BY descripcion ORDER BY descripcion";
 
         $result = parent::conexion2()->prepare($sql);
         $result->bindValue(":id_trabajador", $id_trabajador, PDO::PARAM_INT);
         $result->bindValue(":anio", $anio, PDO::PARAM_INT);
         $result->bindValue(":mes", $mes, PDO::PARAM_INT);
+<<<<<<< HEAD
         $result->bindValue(":quincena", $quincena, PDO::PARAM_INT);
+=======
+        // $result->bindValue(":quincena", $quincena, PDO::PARAM_INT);
+>>>>>>> john
         $result->execute();
 
         if ($result->rowCount()>0){
@@ -437,5 +488,56 @@ class ajaxModel extends mainModel{
         }
 
     }
+
+    /* // Obtener trabajadores desde el sigefirrhh e insertarlos en la tabla usuarios de extranet
+    protected function get_workers_for_users_model(){
+
+        $select = "SELECT DISTINCT p.cedula, primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido AS nombres, id_trabajador FROM personal p
+        INNER JOIN trabajador t ON (p.id_personal = t.id_personal)
+        WHERE t.estatus = 'A'";
+
+        $resultSelect = parent::conexion2()->prepare($select);
+        $resultSelect->execute();
+        $datos = $resultSelect->fetchAll();
+        echo "Listo array sigefirrhh";
+        // unset($resultSelect);
+        // unset($conexion);
+
+        // return $datos;
+        // print_r($datos);
+
+        $nro = 0;
+        foreach ($datos as $value) {
+
+            $civ = $value[0];
+            $nombres = $value[1];
+            $pass = parent::encriptar($civ);
+            $fecha = date("Y-m-d");
+            $id_trabajador = $value[2];
+            
+            $insert = "INSERT INTO users
+            (civ, nombre, id_status, reg_date, reg_user, id_rol, pass, id_trabajador) VALUES 
+            ('".$civ."','".$nombres."',1,'$fecha',1,3,'$pass',$id_trabajador)";
+            $resultInsert = parent::conectar()->prepare($insert);
+            $resultInsert->execute();
+            
+            $nro++;
+
+            if($resultInsert->rowCount()>0){
+
+                echo $nro."<br>";
+
+            }else{
+
+                echo $resultInsert->errorInfo();
+
+            }
+            
+    
+        }
+        return "<br>Listo inserción en extranet";
+        // return $nro;
+
+    } */
 
 }

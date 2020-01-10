@@ -5,8 +5,18 @@ use Spipu\Html2Pdf\Html2Pdf;
 require_once './controllers/ajaxController.php';
 $class = new ajaxController;
 $mes = date('m');
-$datos = $class->get_data_workers(18762905);
-$pay = $class->get_data_pay_workers(80118);
+
+$url = explode("/", $_GET['views']);
+
+// Desencriptar id_trabajador
+$idwork = $class->desencriptar_idwork($url[1]);
+
+// Datos personales del trabajador
+$datos = $class->get_data_workers($idwork);
+
+// Datos de pago del trabajador
+$pay = $class->get_data_pay_workers($idwork);
+
 ob_start();
     require_once './views/content/htmlConstancia.php';
 $html = ob_get_clean();
@@ -20,4 +30,4 @@ $html = ob_get_clean();
     $pdf->writeHTML($html);
 
     //Generamos el PDF
-    $pdf->Output('PdfGeneradoPHP.pdf','I');
+    $pdf->Output($datos[0]."-constancia.pdf",'I');
