@@ -1,25 +1,31 @@
 <?php
 
-session_start(['name' => 'NSW']);
-
-$id_trabajador = explode("/", $_GET['views']);
-
 require_once './controllers/ajaxController.php';
 
 $datos = new ajaxController();
 
-$trabajador = $datos->get_data_workers($id_trabajador[1]);
+session_start(['name' => 'NSW']);
 
-$registros = $datos->reporte_arc($id_trabajador[1]);
-$deducciones = $datos->deducciones_reporte_arc($id_trabajador[1]);
+$url = explode("/", $_GET['views']);
 
+// Desencriptar id_trabajador
+$idwork = $datos->desencriptar_idwork($url[1]);
+
+// para foreach con los montos mensuales
+$registros = $datos->reporte_arc($idwork);
+
+// Para forech con las deducciones anuales
+$deducciones = $datos->deducciones_reporte_arc($idwork);
+
+// Para la cabecera del arc
+$trabajador = $datos->get_data_workers($idwork);
 $GLOBALS['cedula'] = $trabajador[0];
 $GLOBALS['nombres'] = $trabajador[1];
 
 
 if(isset($_SESSION['nivel'])){
 
-    if($_SESSION['nivel']==1){
+    // if($_SESSION['nivel']==1){
 
         require('views/assets/fpdf/fpdf.php');
 
@@ -197,9 +203,9 @@ if(isset($_SESSION['nivel'])){
 
         $pdf->Line(10,246,195,246);
 
-        $pdf->Output();
+        $pdf->Output($GLOBALS['cedula']."-arc.pdf",'I');
 
-    }
+    // }
 
 }else{
 

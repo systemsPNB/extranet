@@ -12,13 +12,13 @@
 
         <ul class="navbar-nav mr-auto">
 
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link" href="#"> <i class="icon-search"></i> Informacion</a>
-            </li>
+            </li> 
 
             <li class="nav-item">
                 <a class="nav-link" href="#"> <i class="icon-search"></i> Leyes</a>
-            </li>
+            </li>-->
 
             <?php if($_SESSION['nivel'] == 1){ ?>
 

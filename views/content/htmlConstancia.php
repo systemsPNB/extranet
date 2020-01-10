@@ -127,7 +127,7 @@
             <tr>
 
                 <td style="text-align: left; width: 300px;"> <?=$value[0];?> </td>
-                <td style="text-align: center; width: 300px;"> <?=$value[1];?> </td>
+                <td style="text-align: center; width: 300px;"> <?= number_format($value[1],2);?> </td>
                 
             </tr>
 
@@ -143,7 +143,7 @@
         <tr>
 
             <th style="text-align: center; width: 300px;">TOTAL ASIGNACIÓN</th>
-            <th style="text-align: center; width: 300px;"> <?=$total;?> </th>
+            <th style="text-align: center; width: 300px;"> <?= number_format($total,2); ?> </th>
 
         </tr>
 
