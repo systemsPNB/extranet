@@ -217,6 +217,21 @@ class ajaxController extends ajaxModel{
 
     } */
 
+    // Encriptar idwork en vista home
+    public static function encriptar_idwork($idwork){
+
+        return ajaxModel::encriptar($idwork);
+        
+    }
+
+    // Desencriptar idwork en vista home
+    public function desencriptar_idwork($idwork){
+
+        return ajaxModel::desencriptar($idwork);
+        // return parent::desencriptar($idwork);
+        
+    }
+
 }
 
 // ajaxController::get_workers_for_users();

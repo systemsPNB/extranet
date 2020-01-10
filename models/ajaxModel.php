@@ -1,6 +1,6 @@
 <?php
-ini_set('max_execution_time', '300');
-set_time_limit(300);
+// ini_set('max_execution_time', '300');
+// set_time_limit(300);
 if(is_file('../core/mainModel.php')){
     require_once '../core/mainModel.php';
 }else{
@@ -435,26 +435,26 @@ class ajaxModel extends mainModel{
         $id_trabajador = $datos[0];
         $mes = $datos[1];
 
-        // Determinar cual quincena imprimir deacuerdo al día actual
+/*         // Determinar cual quincena imprimir deacuerdo al día actual
         if(date('d') <= 10){
             $quincena = 1;
         }else{
             $quincena = 2;
-        }
+        } */
 
         $anio = date('Y');
 
         /* Si el mes es enero y el dia es menor o igual a 10 (primera quincena), entonces al año actual se le resta 1, el mes será el último del año pasado y la quincena será la última también */
-        if($mes == 01 && date('d') <= 10) {
+        /* if($mes == 01 && date('d') <= 10) {
             $anio = $anio-1;
             $mes = 12;
             $quincena = 2;
-        }
+        } */
         
-        $sql = "SELECT descripcion, monto_asigna FROM historicoquincena hq
+        $sql = "SELECT DISTINCT descripcion, SUM(monto_asigna) FROM historicoquincena hq
         INNER JOIN conceptotipopersonal ctp ON (hq.id_concepto_tipo_personal = ctp.id_concepto_tipo_personal)
         INNER JOIN concepto c ON (ctp.id_concepto = c.id_concepto)
-        WHERE id_trabajador = :id_trabajador AND anio = :anio AND mes = :mes AND monto_asigna > 0 ORDER BY descripcion";
+        WHERE id_trabajador = :id_trabajador AND anio = :anio AND mes = :mes AND monto_asigna > 0 GROUP BY descripcion ORDER BY descripcion";
 
         $result = parent::conexion2()->prepare($sql);
         $result->bindValue(":id_trabajador", $id_trabajador, PDO::PARAM_INT);
@@ -478,7 +478,7 @@ class ajaxModel extends mainModel{
     /* // Obtener trabajadores desde el sigefirrhh e insertarlos en la tabla usuarios de extranet
     protected function get_workers_for_users_model(){
 
-        $select = "SELECT DISTINCT p.cedula, primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido AS nombres FROM personal p
+        $select = "SELECT DISTINCT p.cedula, primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido AS nombres, id_trabajador FROM personal p
         INNER JOIN trabajador t ON (p.id_personal = t.id_personal)
         WHERE t.estatus = 'A'";
 
@@ -499,27 +499,23 @@ class ajaxModel extends mainModel{
             $nombres = $value[1];
             $pass = parent::encriptar($civ);
             $fecha = date("Y-m-d");
+            $id_trabajador = $value[2];
             
             $insert = "INSERT INTO users
-            (civ, nombre, id_status, reg_date, reg_user, id_rol, pass) VALUES 
-            ('".$civ."','".$nombres."',1,'$fecha',1,3,'$pass')";
+            (civ, nombre, id_status, reg_date, reg_user, id_rol, pass, id_trabajador) VALUES 
+            ('".$civ."','".$nombres."',1,'$fecha',1,3,'$pass',$id_trabajador)";
             $resultInsert = parent::conectar()->prepare($insert);
             $resultInsert->execute();
             
-            
             $nro++;
-            // echo "<br>";
-            // print_r($insert);
-            // echo "<br>";
-
 
             if($resultInsert->rowCount()>0){
 
-                echo $nro;
+                echo $nro."<br>";
 
             }else{
 
-                return $resultInsert->errorInfo();
+                echo $resultInsert->errorInfo();
 
             }
             

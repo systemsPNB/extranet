@@ -267,7 +267,9 @@ $(function () {
 			});
 		});
 	}
-		
+
+
+	
 
 }); // Fin de Jquery
 

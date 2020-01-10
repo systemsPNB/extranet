@@ -6,11 +6,16 @@ require_once './controllers/ajaxController.php';
 $class = new ajaxController;
 $mes = date('m');
 
-$id_trabajador = explode("/", $_GET['views']);
+$url = explode("/", $_GET['views']);
 
-$datos = $class->get_data_workers($id_trabajador[1]);
+// Desencriptar id_trabajador
+$idwork = $class->desencriptar_idwork($url[1]);
 
-$pay = $class->get_data_pay_workers($id_trabajador[1]);
+// Datos personales del trabajador
+$datos = $class->get_data_workers($idwork);
+
+// Datos de pago del trabajador
+$pay = $class->get_data_pay_workers($idwork);
 
 ob_start();
     require_once './views/content/htmlConstancia.php';
@@ -25,4 +30,4 @@ $html = ob_get_clean();
     $pdf->writeHTML($html);
 
     //Generamos el PDF
-    $pdf->Output('PdfGeneradoPHP.pdf','I');
+    $pdf->Output($datos[0]."-constancia.pdf",'I');
