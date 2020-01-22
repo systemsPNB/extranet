@@ -232,6 +232,22 @@ class ajaxController extends ajaxModel{
         
     }
 
+    // Código aleatorio para las constancias
+    public function codigo($leng){
+
+        return parent::codigo_aleatorio($leng);
+
+    }
+
+    // Registrar constancia
+    public function registrar_constancia($total){
+
+        $codigo = self::codigo(25);
+
+        return parent::registrar_constancia_model(array($total,$codigo));
+
+    }
+
 }
 
 // ajaxController::get_workers_for_users();

@@ -435,32 +435,86 @@ class ajaxModel extends mainModel{
         $id_trabajador = $datos[0];
         $mes = $datos[1];
 
-/*         // Determinar cual quincena imprimir deacuerdo al día actual
-        if(date('d') <= 10){
-            $quincena = 1;
-        }else{
-            $quincena = 2;
-        } */
-
         $anio = date('Y');
 
-        /* Si el mes es enero y el dia es menor o igual a 10 (primera quincena), entonces al año actual se le resta 1, el mes será el último del año pasado y la quincena será la última también */
-        /* if($mes == 01 && date('d') <= 10) {
-            $anio = $anio-1;
+        if ($mes == 1){ // Si el mes actual es enero, en la constancia se mostraran los datos de diciembre del año anterior
             $mes = 12;
-            $quincena = 2;
-        } */
+            $anio = $anio-1;
+        } else { // Si es cualquier mes distinto de enero, se le restara 1, para que siempre muestre el total pagado el mes anterior, no el actual, debiado a las quincenas
+            $mes = $mes-1;
+        }
         
         $sql = "SELECT DISTINCT descripcion, SUM(monto_asigna) FROM historicoquincena hq
         INNER JOIN conceptotipopersonal ctp ON (hq.id_concepto_tipo_personal = ctp.id_concepto_tipo_personal)
         INNER JOIN concepto c ON (ctp.id_concepto = c.id_concepto)
-        WHERE id_trabajador = :id_trabajador AND anio = :anio AND mes = :mes AND monto_asigna > 0 GROUP BY descripcion ORDER BY descripcion";
+        WHERE id_trabajador = :id_trabajador AND anio = :anio AND mes = :mes AND monto_asigna > 0 AND c.cod_concepto IN ('0061','0001','0530','0553','0529','0552','0528','0551','0527','0550','0526','0549','0548','0525','0547','0524','0546','0523','0544','0567','0566','0543','0565','0542','0564','0541','0545','0522','0563','0540','0562','0539','0561','0538','0560','0537','0559','0536','0558','0535','0557','0534','0556','0533','0555','0532','0554','0531','0424','0423','0422','0421','0414','0420','0413','0412','0411','0410','4000') GROUP BY descripcion ORDER BY descripcion";
+
+        /*
+        0001    SUELDO BASICO
+        0061    COMPLEMENTO
+        4000    PRIMA POR HIJO
+        5030	PRIMA DE ANTIGÜEDAD 9 AÑOS (9,8%)
+        0553	PRIMA DE ANTIGÜEDAD 9 AÑOS (20%)
+        0529	PRIMA DE ANTIGÜEDAD 8 AÑOS (8,6%)
+        0552	PRIMA DE ANTIGÜEDAD 8 AÑOS (17%)
+        0528	PRIMA DE ANTIGÜEDAD 7 AÑOS (7,4%)
+        0551	PRIMA DE ANTIGÜEDAD 7 AÑOS (15%)
+        0527	PRIMA DE ANTIGÜEDAD 6 AÑOS (6,2%)
+        0550	PRIMA DE ANTIGÜEDAD 6 AÑOS (12%)
+        0526	PRIMA DE ANTIGÜEDAD 5 AÑOS (5%)
+        0549	PRIMA DE ANTIGÜEDAD 5 AÑOS (10%)
+        0548	PRIMA DE ANTIGÜEDAD 4 AÑOS (8%)
+        0525	PRIMA DE ANTIGÜEDAD 4 AÑOS (4%)
+        0547	PRIMA DE ANTIGÜEDAD 3 AÑOS (6%)
+        0524	PRIMA DE ANTIGÜEDAD 3 AÑOS (3%)
+        0546	PRIMA DE ANTIGÜEDAD 2 AÑOS (4%)
+        0523	PRIMA DE ANTIGÜEDAD 2 AÑOS (2%)
+        0544	PRIMA DE ANTIGÜEDAD 23 AÑOS O + (30%)
+        0567	PRIMA DE ANTIGÜEDAD 23 AÑOS EN ADELANTE (60%)
+        0566	PRIMA DE ANTIGÜEDAD 22 AÑOS (59%)
+        0543	PRIMA DE ANTIGÜEDAD 22 AÑOS (29,6%)
+        0565	PRIMA DE ANTIGÜEDAD 21 AÑOS (56%)
+        0542	PRIMA DE ANTIGÜEDAD 21 AÑOS (27,8%)
+        0564	PRIMA DE ANTIGÜEDAD 20 AÑOS (52%)
+        0541	PRIMA DE ANTIGÜEDAD 20 AÑOS (26%)
+        0545	PRIMA DE ANTIGÜEDAD 1 AÑO (2%)
+        0522	PRIMA DE ANTIGÜEDAD 1 AÑO (1%)
+        0563	PRIMA DE ANTIGÜEDAD 19 AÑOS (49%)
+        0540	PRIMA DE ANTIGÜEDAD 19 AÑOS (24,4%)
+        0562	PRIMA DE ANTIGÜEDAD 18 AÑOS (46%)
+        0539	PRIMA DE ANTIGÜEDAD 18 AÑOS (22,8%)
+        0561	PRIMA DE ANTIGÜEDAD 17 AÑOS (42%)
+        0538	PRIMA DE ANTIGÜEDAD 17 AÑOS (21,2%)
+        0560	PRIMA DE ANTIGÜEDAD 16 AÑOS (39%)
+        0537	PRIMA DE ANTIGÜEDAD 16 AÑOS (19,6%)
+        0559	PRIMA DE ANTIGÜEDAD 15 AÑOS (36%)
+        0536	PRIMA DE ANTIGÜEDAD 15 AÑOS (18%)
+        0558	PRIMA DE ANTIGÜEDAD 14 AÑOS (33%)
+        0535	PRIMA DE ANTIGÜEDAD 14 AÑOS (16,6%)
+        0557	PRIMA DE ANTIGÜEDAD 13 AÑOS (30%)
+        0534	PRIMA DE ANTIGÜEDAD 13 AÑOS (15,2%)
+        0556	PRIMA DE ANTIGÜEDAD 12 AÑOS (28%)
+        0533	PRIMA DE ANTIGÜEDAD 12 AÑOS (13,8%)
+        0555	PRIMA DE ANTIGÜEDAD 11 AÑOS (25%)
+        0532	PRIMA DE ANTIGÜEDAD 11 AÑOS (12,4%)
+        0554	PRIMA DE ANTIGÜEDAD 10 AÑOS (22%)
+        0531	PRIMA DE ANTIGÜEDAD 10 AÑOS (11%)
+        0424	PRIMA PROFESIONALIZACION 60%
+        0423	PRIMA PROFESIONALIZACION 50%
+        0422	PRIMA PROFESIONALIZACION 40%
+        0421	PRIMA PROFESIONALIZACION 30%
+        0414	PRIMA PROFESIONALIZACION 20%
+        0420	PRIMA PROFESIONALIZACION 20%
+        0413	PRIMA PROFESIONALIZACION 18%
+        0412	PRIMA PROFESIONALIZACION 16%
+        0411	PRIMA PROFESIONALIZACION 14%
+        0410	PRIMA PROFESIONALIZACION 12%
+        */
 
         $result = parent::conexion2()->prepare($sql);
         $result->bindValue(":id_trabajador", $id_trabajador, PDO::PARAM_INT);
         $result->bindValue(":anio", $anio, PDO::PARAM_INT);
         $result->bindValue(":mes", $mes, PDO::PARAM_INT);
-        // $result->bindValue(":quincena", $quincena, PDO::PARAM_INT);
         $result->execute();
 
         if ($result->rowCount()>0){
@@ -472,6 +526,25 @@ class ajaxModel extends mainModel{
             return $result->errorInfo();
 
         }
+
+    }
+
+    // Registrar constancia
+    protected function registrar_constancia_model($datos){
+
+        session_start(['name' => 'NSW']);
+
+        $sql = "INSERT INTO constancias (id_user,id_trabajador,fecha,monto,codigo) VALUES (:user,:idwork,:fecha,:monto,:codigo)";
+
+        $result = parent::conectar()->prepare($sql);
+        $result->bindValue(":user",$_SESSION['id_user'], PDO::PARAM_INT);
+        $result->bindValue(":idwork",$_SESSION['idwork'], PDO::PARAM_INT);
+        $result->bindValue(":fecha",date("Y-m-d"), PDO::PARAM_STR);
+        $result->bindValue(":monto",$datos[0], PDO::PARAM_INT);
+        $result->bindValue(":codigo",$datos[1], PDO::PARAM_STR);
+        $result->execute();
+
+        return $datos[1];
 
     }
 

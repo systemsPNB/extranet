@@ -55,13 +55,12 @@
 
     </page_header>
 
-
-    <page_footer>
+    <page_footer> <!-- Pie de página -->
 
 
         <p ALIGN="justify">
             Esta constancia ha sido emitida electronicamente, los datos reflejados estan sujetos a confirmacion a través de nuestra pagina web http://cpnb.gob.ve,
-            mediante el enlace extranet en el modulo verificación de constancia, introduciendo el siguiente codigo:YSP7RSC7P0SI2S.
+            mediante el enlace extranet en el modulo verificación de constancia, introduciendo el siguiente codigo: <?= "hola"; ?>
             
             <img src="./views/img/pie.jpg" alt="">
 
@@ -76,11 +75,7 @@
 
     </page_footer>
 
-    <br><br><br><br><br><br><br>
-
-
-
-    <br><br>
+    <br><br><br><br><br><br><br><br><br>
 
     <h1 style="text-align:center"> C O N S T A N C I A </h1>
 
@@ -147,8 +142,12 @@
 
         </tr>
 
-
     </table>
+
+    <?php
+        $codigo = $class->registrar_constancia($total); // Registrar constancia
+        $GLOBALS['codigo'] = $codigo;
+    ?>
     
     <br>
 

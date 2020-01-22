@@ -84,6 +84,21 @@
 
         }
 
+        protected function codigo_aleatorio($length){
+
+            $permitted = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+
+            $ramdom_str = "";
+
+            for ($i=0; $i <$length ; $i++) { 
+                $ramdom_char = $permitted[mt_rand(0,$length-1)];
+                $ramdom_str .= $ramdom_char;
+            }
+
+            return $ramdom_str;
+
+        }
+
         // parametro
         // 1 conexion de base de datos a utilizar
         // 2 consulta sql

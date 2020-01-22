@@ -6,13 +6,21 @@ class loginController extends loginModel{
     // Iniciar sesión
     public function login_controlador(){
 
-        $user = mainModel::limpiar_cadena($_POST['user']);
-        $pass = mainModel::limpiar_cadena($_POST['pass']);
+        session_start(['name' => 'NSW']);
+
+        if($_SESSION['captcha_text'] === $_POST['captcha_challenge']){
+
+            $user = mainModel::limpiar_cadena($_POST['user']);
+            $pass = mainModel::limpiar_cadena($_POST['pass']);
+            $pass = mainModel::encriptar($pass);
+            return loginModel::login_modelo($user,$pass);
+
+        }else{
+
+            return "<script> alertify.warning('Error de captcha'); </script>";
+            
+        }
         
-        $pass = mainModel::encriptar($pass);
-
-        return loginModel::login_modelo($user,$pass);
-
     }
 
     // Registrar primer usuario

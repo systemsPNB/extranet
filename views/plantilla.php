@@ -51,7 +51,7 @@ if ($vistasR == "./views/content/reporte-view.php"){
             require_once './controllers/loginController.php';
             $lc = new loginController();
             if (!isset($_SESSION['user'])) {
-                $lc->cerrar_sesion();
+                // $lc->cerrar_sesion();
             }
             ///////////////////////////////
 

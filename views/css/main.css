@@ -103,3 +103,28 @@ body, html{
     margin-bottom: 0;
     background-color: rgba(0,0,0,.03);
 }
+
+#refresh-captcha{
+	color: white;
+	font-size: 30px;
+}
+
+#refresh-captcha:hover{
+	color: black;
+	cursor: pointer;
+	/* font-size: 30px; */
+}
+
+.captcha-image{
+	width: 230px;
+	height: 35px;
+	margin-bottom: 10px;
+	border: 1px solid #fff555;
+}
+
+.form-control::placeholder{
+    color: 
+    #6c757d;
+    opacity: 1;
+    font-size: 13px;
+}
