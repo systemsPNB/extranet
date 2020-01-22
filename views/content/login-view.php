@@ -16,7 +16,7 @@
             <div class="form-group label-floating">
                 <label class="control-label" for="ruser">Usuario</label>
                 <input class="form-control" id="ruser" name="ruser" type="text" maxlength="8" autofocus required>
-                <p class="help-block">Escribe tú nombre de usuario</p>
+                <p class="help-block">Escribe tú nombre de usuario o cédula</p>
             </div>
 
             <div class="form-group label-floating">
@@ -62,7 +62,7 @@
     <form method="post" autocomplete="off" class="logInForm">
 
         <p class="text-center text-muted"><i class="zmdi zmdi-account-circle zmdi-hc-5x"></i></p>
-        <p class="text-center text-muted text-uppercase">Inicia sesión con tu cuenta</p>
+        <p class="text-center text-fon text-uppercase">Extranet CPNB</p>
 
         <div class="form-group label-floating">
             <label class="control-label" for="UserName">Usuario</label>
@@ -72,8 +72,16 @@
 
         <div class="form-group label-floating">
             <label class="control-label" for="UserPass">Contraseña</label>
-            <input class="form-control" id="UserPass" name="pass" type="password" required>
+            <input class="form-control" id="UserPass" name="pass" type="password" autocomplete="on" required>
             <p class="help-block">Escribe tú contraseña</p>
+        </div>
+
+        <div>
+            <label>Por favor ingrese el texto de la imagen</label>
+            <img src="<?=SERVERURL?>views/content/captcha.php" class="captcha-image" alt="CAPTCHA">
+            <i class="icon-refresh2" id="refresh-captcha" title="Cambiar imagen"></i>
+            <br>
+            <input type="text" class="form-control" name="captcha_challenge" pattern="[A-Za-z1-9]{6}" maxlength="6" placeholder="Escriba aquí el texto de la imagen">
         </div>
 
         <div class="form-group text-center">
@@ -86,7 +94,11 @@
 
 <?php
 
-    if (isset($_POST['user']) && isset($_POST['pass'])){
+    if(
+        isset($_POST['user']) &&
+        isset($_POST['pass']) &&
+        isset($_POST['captcha_challenge'])
+    ){
 
         echo $login->login_controlador();
 
@@ -94,3 +106,13 @@
 
 }
 ?>
+
+<script>
+    var refreshButton = document.getElementById("refresh-captcha");
+
+    refreshButton.onclick = function(){
+
+        document.querySelector(".captcha-image").src = '<?=SERVERURL?>views/content/captcha2.php?' + Date.now();
+
+    }
+</script>

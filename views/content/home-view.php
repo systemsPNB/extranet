@@ -65,7 +65,7 @@
                                             <option value="">Seleccione</option>
                                             <option value="1">ARC</option>
                                             <option value="2">Constancia</option>
-                                            <option value="3">Recibo Pago</option>
+                                            <!-- <option value="3">Recibo Pago</option> -->
                                         </select>
 
                                         <div class="col-2">
@@ -109,7 +109,7 @@
                                                     <option value="">Seleccione</option>
                                                     <option value="1">ARC</option>
                                                     <option value="2">Constancia</option>
-                                                    <option value="3">Recibo Pago</option>
+                                                    <!-- <option value="3">Recibo Pago</option> -->
                                                 </select>
         
                                                 <div class="col-2">

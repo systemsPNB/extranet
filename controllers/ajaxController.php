@@ -232,46 +232,19 @@ class ajaxController extends ajaxModel{
         
     }
 
-    // Obtener datos del trabajador para mostrar en el arc y constancia de trabajo
-    public function get_data_pay_workers($id_trabajador){
+    // Código aleatorio para las constancias
+    public function codigo($leng){
 
-        switch (date('m')) {
-            case '01':
-                $mes = 1;
-                break;
-            case '02':
-                $mes = 2;
-                break;
-            case '03':
-                $mes = 3;
-                break;
-            case '04':
-                $mes = 4;
-                break;
-            case '05':
-                $mes = 5;
-                break;
-            case '06':
-                $mes = 6;
-                break;
-            case '07':
-                $mes = 7;
-                break;
-            case '08':
-                $mes = 8;
-                break;
-            case '09':
-                $mes = 9;
-                break;
-        }
+        return parent::codigo_aleatorio($leng);
 
-        if (date('m') <= 9){
-            $mes;
-        }else{
-            $mes = date('m');
-        }
+    }
 
-        return parent::get_data_pay_workers_model(array($id_trabajador,$mes));
+    // Registrar constancia
+    public function registrar_constancia($total){
+
+        $codigo = self::codigo(25);
+
+        return parent::registrar_constancia_model(array($total,$codigo));
 
     }
 
