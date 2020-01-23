@@ -58,4 +58,14 @@ class loginController extends loginModel{
 
     }
 
+    // Cerrar sesión
+    public function cerrar_session(){
+
+        session_start(['name' => 'NSW']);
+        session_unset();
+        session_destroy();
+        return header('Location: '.SERVERURL.'login/');
+
+    }
+
 }

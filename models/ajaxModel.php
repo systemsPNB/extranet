@@ -544,7 +544,12 @@ class ajaxModel extends mainModel{
         $result->bindValue(":codigo",$datos[1], PDO::PARAM_STR);
         $result->execute();
 
-        return $datos[1];
+        if($result->rowCount()>0){
+            unset($result);
+            unset($conexion);
+        }else{
+            return $result->errorInfo();
+        }
 
     }
 

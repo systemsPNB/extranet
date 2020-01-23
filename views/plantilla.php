@@ -49,9 +49,9 @@ if ($vistasR == "./views/content/reporte-view.php"){
             session_start(['name' => 'NSW']);
             // Comprobar inicio de sesión
             require_once './controllers/loginController.php';
-            $lc = new loginController();
+            $lc = new loginController;
             if (!isset($_SESSION['user'])) {
-                // $lc->cerrar_sesion();
+                $lc->cerrar_session(); // Redirigir al login si no se ha iniciado sesión
             }
             ///////////////////////////////
 
@@ -61,12 +61,13 @@ if ($vistasR == "./views/content/reporte-view.php"){
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
             <div class="banner">
-                <h1 class="display-4"> <?= NAME_SISTEM; ?> </h1>
-                <p class="lead"> <?= COMPANY; ?> </p>
+                <h1 class="display-4"> <?= COMPANY; ?> </h1>
+                <p class="lead"> <?= NAME_SISTEM; ?> </p>
             </div>
         
             <?php
                 require_once './views/layout/navBar.php'; // Barra de navegación
+                echo "<script> inactivityTime(); </script>";
                 require_once $vistasR; // Vista
                 require_once 'layout/footer.php'; // Pie de página
                 require_once 'content/modals.php'; // Ventanas modal
