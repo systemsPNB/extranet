@@ -22,7 +22,6 @@ $trabajador = $datos->get_data_workers($idwork);
 $GLOBALS['cedula'] = $trabajador[0];
 $GLOBALS['nombres'] = $trabajador[1];
 
-
 if(isset($_SESSION['nivel'])){
 
     // if($_SESSION['nivel']==1){
@@ -125,7 +124,6 @@ if(isset($_SESSION['nivel'])){
 
                 $this->Line(10,101,195,101);
 
-
             }
 
             // Pie de página
@@ -209,6 +207,6 @@ if(isset($_SESSION['nivel'])){
 
 }else{
 
-    header('Location: 404');
+    header('Location: '.SERVERURL.'controllers/cerrarSesion.php');
     
 }

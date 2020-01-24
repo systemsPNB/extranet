@@ -528,3 +528,24 @@ function graficaHome(datosX1, datosY1, datosX2, datosY2) {
 
 	Plotly.newPlot('graficaLinea', data, layout, {}, { showSendToCloud: true });
 }
+
+// Cerrar sesión por inactividad
+const inactivityTime = () =>{
+
+	let t;
+	window.onload = resetTimer;
+	// DOM Events
+	document.onmousemove = resetTimer;
+	document.onkeypress = resetTimer;
+
+	const logout = () =>{
+		location.href = '../controllers/cerrarSesion.php';
+		// alert('Su ');
+	}
+
+	function resetTimer(){
+		clearTimeout(t);
+		t = setTimeout(logout, 300000) // 5 minutos 300000 milisegundos
+	}
+	
+}

@@ -542,8 +542,6 @@ class ajaxModel extends mainModel{
     // Registrar constancia
     protected function registrar_constancia_model($datos){
 
-        session_start(['name' => 'NSW']);
-
         $sql = "INSERT INTO constancias (id_user,id_trabajador,fecha,monto,codigo) VALUES (:user,:idwork,:fecha,:monto,:codigo)";
 
         $result = parent::conectar()->prepare($sql);
@@ -554,7 +552,12 @@ class ajaxModel extends mainModel{
         $result->bindValue(":codigo",$datos[1], PDO::PARAM_STR);
         $result->execute();
 
-        return $datos[1];
+        if($result->rowCount()>0){
+            unset($result);
+            unset($conexion);
+        }else{
+            return $result->errorInfo();
+        }
 
     }
 

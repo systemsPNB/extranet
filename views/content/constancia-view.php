@@ -2,32 +2,43 @@
 
 require_once './vendor/autoload.php';
 use Spipu\Html2Pdf\Html2Pdf;
-require_once './controllers/ajaxController.php';
-$class = new ajaxController;
-$mes = date('m');
 
-$url = explode("/", $_GET['views']);
+session_start(['name' => 'NSW']);
 
-// Desencriptar id_trabajador
-$idwork = $class->desencriptar_idwork($url[1]);
+if ($_SESSION['id_user']) {
 
-// Datos personales del trabajador
-$datos = $class->get_data_workers($idwork);
+    require_once './controllers/ajaxController.php';
+    $class = new ajaxController;
+    $mes = date('m');
 
-// Datos de pago del trabajador
-$pay = $class->get_data_pay_workers($idwork);
+    $url = explode("/", $_GET['views']);
 
-ob_start();
-    require_once './views/content/htmlConstancia.php';
-$html = ob_get_clean();
+    // Desencriptar id_trabajador
+    $idwork = $class->desencriptar_idwork($url[1]);
 
-    //Pasamos esa vista a PDF
+    // Datos personales del trabajador
+    $datos = $class->get_data_workers($idwork);
 
-    //Le indicamos el tipo de hoja y la codificación de caracteres
-    $pdf = new Html2Pdf('P', 'A4', 'es', 'true', 'UTF-8');
+    // Datos de pago del trabajador
+    $pay = $class->get_data_pay_workers($idwork);
 
-    //Escribimos el contenido en el PDF
-    $pdf->writeHTML($html);
+    ob_start();
+        require_once './views/content/htmlConstancia.php';
+    $html = ob_get_clean();
 
-    //Generamos el PDF
-    $pdf->Output($datos[0]."-constancia.pdf",'I');
+        //Pasamos esa vista a PDF
+
+        //Le indicamos el tipo de hoja y la codificación de caracteres
+        $pdf = new Html2Pdf('P', 'A4', 'es', 'true', 'UTF-8');
+
+        //Escribimos el contenido en el PDF
+        $pdf->writeHTML($html);
+
+        //Generamos el PDF
+        $pdf->Output($datos[0]."-constancia.pdf",'I');
+
+}else{
+    
+    header('Location: '.SERVERURL.'controllers/cerrarSesion.php');
+    
+}

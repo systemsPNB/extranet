@@ -59,8 +59,6 @@
 
 
         <p ALIGN="justify">
-            Esta constancia ha sido emitida electronicamente, los datos reflejados estan sujetos a confirmacion a través de nuestra pagina web http://cpnb.gob.ve,
-            mediante el enlace extranet en el modulo verificación de constancia, introduciendo el siguiente codigo: <?= "hola"; ?>
             
             <img src="./views/img/pie.jpg" alt="">
 
@@ -144,16 +142,13 @@
 
     </table>
 
-    <?php
-        $codigo = $class->registrar_constancia($total); // Registrar constancia
-        $GLOBALS['codigo'] = $codigo;
-    ?>
+    <?php $codigo = $class->registrar_constancia($total); // Registrar constancia ?>
     
     <br>
 
     <p style="text-align: justify;">
-        Percibe por beneficio de alimentación la cantidad de novecientos quince mil bolivares exactos (Bs.
-        915.000,00) mensuales.
+        Percibe por beneficio de alimentación la cantidad de doscientos mil bolivares exactos (Bs.
+        200.000,00) mensuales.
     </p>
 
 
@@ -163,5 +158,10 @@
 
 
     <img class="firma" src="./views/img/firma1.png">
+
+    <p ALIGN="justify">
+            Esta constancia ha sido emitida electronicamente, los datos reflejados estan sujetos a confirmacion a través de nuestra pagina web http://www.policianacional.gob.ve/,
+            mediante el enlace extranet en el modulo verificación de constancia, introduciendo el siguiente codigo: <b> <?=$codigo?> </b>
+    </p>
 
 </page>

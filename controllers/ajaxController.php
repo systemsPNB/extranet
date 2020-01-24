@@ -242,9 +242,9 @@ class ajaxController extends ajaxModel{
     // Registrar constancia
     public function registrar_constancia($total){
 
-        $codigo = self::codigo(25);
-
-        return parent::registrar_constancia_model(array($total,$codigo));
+        $codigo = self::codigo(11);
+        parent::registrar_constancia_model(array($total,$codigo));
+        return $codigo;
 
     }
 
