@@ -12,6 +12,7 @@ Sistema de extranet CPNB
 9- Modulo para constar validez de la constancia de trabajo
 10- Agregar bitacora de los usuarios
 11- Quitar editar nombres en myaccount
+12- Registrar ip de quien se conecta al extranet
 
 ---------------- Listo ---------------------
 1- Código aleatorio para cada constancia

@@ -357,11 +357,8 @@ class ajaxModel extends mainModel{
         WHERE id_trabajador = :idwork AND anio = :anio AND c.cod_concepto IN ('0001','0410','0411','0412','0413','0414','0522','0523','0524','0525','0526','0527','0528','0529','0530','0531','0532','0533','0534','0535','0536','0537','0538','0539','0540','0541','0542','0543','0544','1500','1600','4000', '0500') GROUP BY mes ORDER BY mes";
 
         $result = parent::conexion2()->prepare($sql);
-<<<<<<< HEAD
-=======
         $result->bindValue(":idwork", $idwork, PDO::PARAM_INT);
         $result->bindValue(":anio", $anio, PDO::PARAM_INT);
->>>>>>> john
 
         $result->execute();
 
@@ -383,17 +380,10 @@ class ajaxModel extends mainModel{
 
         $anio = date("Y")-1;
 
-<<<<<<< HEAD
-        $sql = "SELECT p.cedula, primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido AS nombres, fecha_ingreso, descripcion_cargo FROM personal p
-        INNER JOIN trabajador t ON (p.id_personal = t.id_personal)
-        INNER JOIN cargo c ON (t.id_cargo = c.id_cargo)
-        WHERE p.cedula = :cedula";
-=======
         $sql = "SELECT descripcion, sum(monto_deduce) FROM historicoquincena hq
         INNER JOIN conceptotipopersonal ctp ON (hq.id_concepto_tipo_personal = ctp.id_concepto_tipo_personal)
         INNER JOIN concepto c ON (ctp.id_concepto = c.id_concepto)
         WHERE id_trabajador = :idwork AND anio = :anio AND c.cod_concepto IN ('5001','5002','5003','5004') GROUP BY descripcion";
->>>>>>> john
 
         $result = parent::conexion2()->prepare($sql);
         $result->bindValue(":idwork", $idwork, PDO::PARAM_INT);
