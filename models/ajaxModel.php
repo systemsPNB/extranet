@@ -532,8 +532,6 @@ class ajaxModel extends mainModel{
     // Registrar constancia
     protected function registrar_constancia_model($datos){
 
-        session_start(['name' => 'NSW']);
-
         $sql = "INSERT INTO constancias (id_user,id_trabajador,fecha,monto,codigo) VALUES (:user,:idwork,:fecha,:monto,:codigo)";
 
         $result = parent::conectar()->prepare($sql);

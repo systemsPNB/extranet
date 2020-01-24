@@ -10,7 +10,8 @@ Sistema de extranet CPNB
 7- Verificar que la constancia de trabajo sea con el total del monto del mes anterior al que se consulte
 8- Colocar la firma en el footer de la constancia
 9- Modulo para constar validez de la constancia de trabajo
-10- 
+10- Agregar bitacora de los usuarios
+11- Quitar editar nombres en myaccount
 
 ---------------- Listo ---------------------
 1- Código aleatorio para cada constancia

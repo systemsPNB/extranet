@@ -40,7 +40,7 @@ $white = imagecolorallocate($image, 255, 255, 255);
 $textcolors = [$black, $white];
  
 $fonts = [
-    '../fonts/arial_narrow_7.ttf',
+    '../views/fonts/arial_narrow_7.ttf',
 ];
  
 $string_length = 6;

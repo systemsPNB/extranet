@@ -20,7 +20,7 @@ if ($vistasR == "./views/content/reporte-view.php"){
 <html lang="es">
 
 <head>
-    <title> <?= COMPANY; ?> </title>
+    <title> <?= NAME_SISTEM; ?> </title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     
