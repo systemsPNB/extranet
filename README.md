@@ -3,16 +3,11 @@ Sistema de extranet CPNB
 ------------- Pendientes -------------------
 1- Modulo para verificar códigos de constancias de trabajo
 2- Script para deshabilitar periodicamente usuarios que fueron suspendidos y egresados
-3- Cambiar el login
-4- Colocar en funcionamiento módulo administrador
-5- Vista para configuración del valor del cesta tiket y nombre del director de rrhh
-6- Vista para configuración del valor del nombre del director de rrhh
-7- Verificar que la constancia de trabajo sea con el total del monto del mes anterior al que se consulte
-8- Colocar la firma en el footer de la constancia
-9- Modulo para constar validez de la constancia de trabajo
-10- Agregar bitacora de los usuarios
-11- Quitar editar nombres en myaccount
-12- Registrar ip de quien se conecta al extranet
+3- Vista para configuración del valor del cesta tiket y nombre del director de rrhh
+4- Vista para configuración del valor del nombre del director de rrhh
+5- Verificar que la constancia de trabajo sea con el total del monto del mes anterior al que se consulte
+6- Agregar bitacora de los usuarios
+7- Registrar ip de quien se conecta al extranet
 
 ---------------- Listo ---------------------
 1- Código aleatorio para cada constancia
@@ -20,3 +15,12 @@ Sistema de extranet CPNB
 3- evitar ver la constancia y arc pasando la arc directamente
 4- Solucionar problema del cierre de la sesión
 5- Cerrar sessión tras 5 minutos de inactividad
+6- Mejorar el login
+7- Colocar en funcionamiento módulo administrador
+8- Quitar editar nombres en myaccount
+
+usuario: extranet-192
+pass: 12345678
+192.168.8.192
+
+root 87654321

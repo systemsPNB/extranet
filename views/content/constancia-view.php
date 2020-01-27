@@ -16,6 +16,10 @@ if ($_SESSION['id_user']) {
     // Desencriptar id_trabajador
     $idwork = $class->desencriptar_idwork($url[1]);
 
+    if(!$idwork){ // Si el parametro no viene cifrado tomar la url normal
+        $idwork = $url[1];
+    }
+
     // Datos personales del trabajador
     $datos = $class->get_data_workers($idwork);
 
@@ -35,7 +39,11 @@ if ($_SESSION['id_user']) {
         $pdf->writeHTML($html);
 
         //Generamos el PDF
-        $pdf->Output($datos[0]."-constancia.pdf",'I');
+        if($_SESSION['nivel']==1){
+            $pdf->Output($datos[0]."-constancia.pdf",'D'); // Descargar sin abrir
+        }else{
+            $pdf->Output($datos[0]."-constancia.pdf",'I'); // Mostrar en el navegador
+        }
 
 }else{
     

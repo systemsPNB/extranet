@@ -106,49 +106,6 @@ class ajaxModel extends mainModel{
 
     }
 
-    // Editar usuario en vista users
-    protected function update_user_model($datos){
-
-        $sql = "UPDATE users SET nombre = :nombre, id_status = :estatus WHERE civ = :user AND id_status = :estatus";
-
-        $result = mainModel::conectar()->prepare($sql);
-
-        $result->bindValue(":user", $datos['user'], PDO::PARAM_STR);
-        $result->bindValue(":nombre", $datos['name'], PDO::PARAM_STR);
-        $result->bindValue(":estatus", $datos['estatus'], PDO::PARAM_INT);
-
-        $result->execute();
-
-        $result_boolean = ($result->rowCount() > 0);
-
-        unset($result);
-        unset($conexion);
-
-        return $result_boolean;
-        
-    }
-
-    // Editar nombre en vista myaccount
-    protected function updateuseraccountmodel($nombre){
-
-        $sql = "UPDATE users SET nombre = :nombre WHERE id_user = :user";
-
-        $result = mainModel::conectar()->prepare($sql);
-
-        $result->bindValue(":nombre", $nombre, PDO::PARAM_STR);
-        $result->bindValue(":user", $_SESSION['id_user'], PDO::PARAM_INT);
-
-        $result->execute();
-
-        $result_boolean = ($result->rowCount() > 0);
-
-        unset($result);
-        unset($conexion);
-
-        return $result_boolean;
-
-    }
-
     // Editar nombre en vista myaccount
     protected function count_users1_model(){
 

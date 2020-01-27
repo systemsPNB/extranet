@@ -1,7 +1,7 @@
 $(function () {
 
 	// Elementos ocultos
-	$("#my_account_save_name,#my_account_save_pass,#frmEditUser,#btn-editsave-user,.data_works").hide();
+	$("#my_account_save_name,#my_account_save_pass,#btn-editsave-user,.data_works").hide();
 
 	// Elementos bloqueados
 	$('#my_a_name,#my_a_pass,#my_a_pass_confirm,#my_a_pass_actual').attr('disabled', true);
@@ -17,50 +17,6 @@ $(function () {
 			window.location = '../controllers/cerrarSesion.php';
 
 		}, function () { });
-
-		return false;
-
-	});
-
-	// Botón de editar usuario
-	$(document).on("click", "#btn-edit-user", function () {
-
-		$("#frmEditUser,#btn-editsave-user").show();
-		$("#frmEditName").val(document.getElementById('nombre').innerHTML);
-		$("#frmEditStatus").val(1);
-		$(this).hide();
-		return false;
-
-	});
-
-	// Guardar cambios editar usuario
-	$(document).on("click", "#btn-editsave-user", function () {
-
-		user = document.getElementById('usuario').innerHTML;
-
-		$.ajax({
-			type: "post",
-			url: "../controllers/ajaxController.php",
-			// url: "../controllers/editUserController.php",
-			data: { usuario: user, name: $("#frmEditName").val(), status: $("#frmEditStatus").val() },
-			success: function (r) {
-
-				switch (r) {
-					case "1":
-						alertify.success("Actualizado con éxito!");
-						$("#frmEditUser")[0].reset();
-						$("#zoom-user-modal").modal('hide');
-						$("#frmEditUser").hide();
-						list_users();
-						break;
-
-					case "":
-						alertify.warning("No se pudo actualizar los datos!");
-						break;
-				}
-
-			}
-		});
 
 		return false;
 
@@ -97,17 +53,6 @@ $(function () {
 			}
 		});
 
-		return false;
-
-	});
-
-	// Función de interacción de los botones en la vista myaccount
-	$(document).on('click', '#my_account_name', function () {
-
-		$("#my_account_save_name").show();
-		$("#my_account_save_pass").hide();
-		$("#my_a_name").attr('disabled', false);
-		$("#my_a_pass,#my_a_pass_confirm,#my_a_pass_actual").attr('disabled', true);
 		return false;
 
 	});
@@ -320,35 +265,6 @@ function myaccount() {
 			document.getElementById('my_a_status').innerHTML = datos[4];
 
 		}
-	});
-
-}
-
-// Función que actualiza el nombre del usuario en la vista myaccount
-function myaccount_update(name) {
-
-	$.ajax({
-		type: "post",
-		url: "../controllers/ajaxController.php",
-		data: { my_a_name: name },
-		success: function (r) {
-
-			switch (r) {
-				case "1":
-					alertify.success('Datos actualizados correctamente!');
-					myaccount();
-					$('#my_a_name,#my_a_pass,#my_a_pass_confirm,#my_a_pass_actual').attr('disabled', true);
-					$("#my_account_save").hide();
-					$("#my_account_edit").show();
-					break;
-
-				case "":
-					alertify.warning('No se pudo actualizar el nombre!');
-					break;
-			}
-
-		}
-
 	});
 
 }

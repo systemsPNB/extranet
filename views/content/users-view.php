@@ -11,10 +11,6 @@
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#reg-user-modal">
                 Registrar usuarios
             </button>
-
-            <a href="<?= SERVERURL; ?>reporte/" target="_blank" class="btn btn-warning" title="Reporte PDF">
-                <i class="icon-file-pdf"></i> Reporte
-            </a>
             
             <hr>
 

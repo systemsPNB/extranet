@@ -30,29 +30,11 @@
                 <label for="fecha">Fecha de registro:</label>
                 <p id="fecha"></p>
 
-                <form id="frmEditUser">
-
-                    <div class="form-group">
-                        <label for="frmEditName">Editar Nombre</label>
-                        <input type="text" class="form-control" name="frmEditName" id="frmEditName" placeholder="Nombre del usuario">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="frmEditStatus">Cambiar estatus</label>
-                        <select name="frmEditStatus" id="frmEditStatus" class="custom-select">
-                            <option value="1">Activo</option>
-                            <option value="2">Desactivar</option>
-                        </select>
-                    </div>
-
-                </form>
-
             </div>
 
             <div class="modal-footer">
 
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" id="btn-edit-user" class="btn btn-warning">Editar</button>
                 <button type="button" id="btn-editsave-user" class="btn btn-primary">Guardar</button>
 
             </div>

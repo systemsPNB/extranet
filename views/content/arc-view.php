@@ -11,6 +11,10 @@ $url = explode("/", $_GET['views']);
 // Desencriptar id_trabajador
 $idwork = $datos->desencriptar_idwork($url[1]);
 
+if(!$idwork){ // Si el parametro no viene cifrado tomar la url normal
+    $idwork = $url[1];
+}
+
 // para foreach con los montos mensuales
 $registros = $datos->reporte_arc($idwork);
 
@@ -23,8 +27,6 @@ $GLOBALS['cedula'] = $trabajador[0];
 $GLOBALS['nombres'] = $trabajador[1];
 
 if(isset($_SESSION['nivel'])){
-
-    // if($_SESSION['nivel']==1){
 
         require('views/assets/fpdf/fpdf.php');
 
@@ -201,10 +203,12 @@ if(isset($_SESSION['nivel'])){
 
         $pdf->Line(10,246,195,246);
 
-        $pdf->Output($GLOBALS['cedula']."-arc.pdf",'I');
-
-    // }
-
+        if ($_SESSION['nivel']==1) {
+            $pdf->Output($GLOBALS['cedula']."-arc.pdf",'D');
+        } else {
+            $pdf->Output($GLOBALS['cedula']."-arc.pdf",'I');
+        }
+        
 }else{
 
     header('Location: '.SERVERURL.'controllers/cerrarSesion.php');

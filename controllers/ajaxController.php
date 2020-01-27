@@ -50,28 +50,6 @@ class ajaxController extends ajaxModel{
 
     }
 
-    // Editar usuario en vista users
-    public function update_user_controller($usuario,$nombre,$estatus){
-
-        $user = mainModel::limpiar_cadena($usuario);
-        $name = mainModel::limpiar_cadena($nombre);
-        $status = mainModel::limpiar_cadena($estatus);
-
-        $datos = array("user" => $user, "name" => $name, "estatus" => $status);
-
-        return ajaxModel::update_user_model($datos);
-        
-    }
-
-    // Editar nombre en vista myaccount
-    public function updateuseraccountcontroller($nombre){
-
-        $nombre = mainModel::limpiar_cadena($nombre);
-
-        return ajaxModel::updateuseraccountmodel($nombre);
-
-    }
-
     // Contar usuarios
     public function count_users1_controller(){
 
@@ -276,24 +254,12 @@ if (isset($_POST['frm_user']) && isset($_POST['frm_pass']) && isset($_POST['frm_
     }
 
 }
+// Registrar un usuario sin la interfaz grafica
+//ajaxController::registrar_usuarios_controlador("sistemas","1qazsistemascpnb2wsx","Sistemas",1);
 
 // Actualizar contraseña
 if (isset($_POST['current_pass']) && isset($_POST['new_pass'])){
 
     echo ajaxController::actualizar_user_pass_controller($_POST['current_pass'],$_POST['new_pass']);
 
-}
-
-// Editar usuario en vista users
-if (isset($_POST['usuario']) && isset($_POST['name']) && isset($_POST['status'])) {
-    
-    echo ajaxController::update_user_controller($_POST['usuario'], $_POST['name'], $_POST['status']);
-        
-}
-
-// Editar nombre en vista myaccount
-if (isset($_POST['my_a_name'])){
-    
-    echo ajaxController::updateuseraccountcontroller($_POST['my_a_name']);
-    
 }

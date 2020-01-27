@@ -86,7 +86,6 @@
                             Editar cuenta
                         </button>
                         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                            <a class="dropdown-item" href="#" id="my_account_name">Nombres</a>
                             <a class="dropdown-item" href="#" id="my_account_pass">Contraseña</a>
                         </div>
                     </div>
