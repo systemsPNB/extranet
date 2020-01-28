@@ -6,8 +6,10 @@ Sistema de extranet CPNB
 3- Vista para configuración del valor del cesta tiket y nombre del director de rrhh
 4- Vista para configuración del valor del nombre del director de rrhh
 5- Verificar que la constancia de trabajo sea con el total del monto del mes anterior al que se consulte
-6- Agregar bitacora de los usuarios
-7- Registrar ip de quien se conecta al extranet
+6- Contador de visitas
+7- Contador de descargas de constancias
+8- Preparar servidor
+9- Agregar validaciones extra en busqueda de trabajadores en la vista de administrador
 
 ---------------- Listo ---------------------
 1- Código aleatorio para cada constancia
@@ -18,9 +20,15 @@ Sistema de extranet CPNB
 6- Mejorar el login
 7- Colocar en funcionamiento módulo administrador
 8- Quitar editar nombres en myaccount
+9- Registrar ip de quien se conecta al extranet
+10- Agregar bitacora de los usuarios
 
 usuario: extranet-192
 pass: 12345678
 192.168.8.192
 
 root 87654321
+
+Nueva configuración server
+User: sistemas
+pass: 87654321

@@ -13,13 +13,16 @@ if ($_SESSION['id_user']) {
 
     $url = explode("/", $_GET['views']);
 
-    // Desencriptar id_trabajador
-    $idwork = $class->desencriptar_idwork($url[1]);
-
-    if(!$idwork){ // Si el parametro no viene cifrado tomar la url normal
+    // Detectar rol del usuario
+    if($_SESSION['nivel']==1){
+        /* Si es administrador, el parametro del id_trabajador no viene cifrado */
         $idwork = $url[1];
+        
+    } else {
+        /* Si el rol es normal el parametro del id_trabajador esta cifrado y debe desencriptarse con esta función */
+        $idwork = $class->desencriptar_idwork($url[1]);
     }
-
+    
     // Datos personales del trabajador
     $datos = $class->get_data_workers($idwork);
 

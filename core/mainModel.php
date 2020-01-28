@@ -148,4 +148,30 @@
             return date('Y-m-d', mktime(0,0,0, $month, 1, $year));
         }
 
+            // Registrar bitacora
+        protected function reg_bitacora($datos){
+            $conexion = self::conectar();
+            $sql = "INSERT INTO bitacora (fecha_entrada,ip,id_user) VALUES (:fecha,:ip,:user)";
+            $result = $conexion->prepare($sql);
+            $result->bindValue(":fecha", $datos[0], PDO::PARAM_STR);
+            $result->bindValue(":ip", $datos[1], PDO::PARAM_STR);
+            $result->bindValue(":user", $datos[2], PDO::PARAM_INT);
+            $result->execute();
+            $id = $conexion->lastInsertId();
+            unset($result);
+            unset($conexion);
+            return $id;
+        }
+
+        // Actualizar bitacora
+        public static function update_bicarora($fecha,$bitacora){
+            $sql = "UPDATE bitacora SET fecha_salida = :fecha WHERE id_bitacora = :bitacora";
+            $result = self::conectar()->prepare($sql);
+            $result->bindValue(":fecha", $fecha, PDO::PARAM_STR);
+            $result->bindValue(":bitacora", $bitacora, PDO::PARAM_INT);
+            $result->execute();
+            unset($result);
+            unset($conexion);
+        }
+
     }

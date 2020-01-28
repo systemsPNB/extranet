@@ -491,9 +491,15 @@ class ajaxModel extends mainModel{
 
         $sql = "INSERT INTO constancias (id_user,id_trabajador,fecha,monto,codigo) VALUES (:user,:idwork,:fecha,:monto,:codigo)";
 
+        if($_SESSION['idwork']==""){
+            $idwork = $datos[2];
+        }else {
+            $idwork = $_SESSION['idwork'];
+        }
+
         $result = parent::conectar()->prepare($sql);
         $result->bindValue(":user",$_SESSION['id_user'], PDO::PARAM_INT);
-        $result->bindValue(":idwork",$_SESSION['idwork'], PDO::PARAM_INT);
+        $result->bindValue(":idwork",$idwork, PDO::PARAM_INT);
         $result->bindValue(":fecha",date("Y-m-d"), PDO::PARAM_STR);
         $result->bindValue(":monto",$datos[0], PDO::PARAM_INT);
         $result->bindValue(":codigo",$datos[1], PDO::PARAM_STR);

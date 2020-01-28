@@ -18,15 +18,20 @@ class loginModel extends mainModel{
         if ($result->rowCount()>0){
 
             $row = $result->fetch();
-            session_start(['name' => 'NSW']);
+            // session_start(['name' => 'NSW']);
             $_SESSION['id_user'] = $row['id_user'];
             $_SESSION['user'] = $row['nombre'];
             $_SESSION['nivel'] = $row['id_rol'];
             $_SESSION['idwork'] = $row['id_trabajador'];
             $_SESSION['cedula'] = $row['civ'];
+            $_SESSION['tokextranet'] = md5(uniqid(mt_rand(),true));
 
-            unset($result);
-            unset($conexion);
+            // Registrar bitacora
+            $datos = array(date("Y-m-d h:i:s a"),$_SERVER['REMOTE_ADDR'],$row['id_user']);
+            $_SESSION['bitacora'] = parent::reg_bitacora($datos);
+
+            // unset($result);
+            // unset($conexion);
 
             return header('Location: '.SERVERURL.'home/');
 

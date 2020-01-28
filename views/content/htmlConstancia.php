@@ -142,7 +142,7 @@
 
     </table>
 
-    <?php $codigo = $class->registrar_constancia($total); // Registrar constancia ?>
+    <?php $codigo = $class->registrar_constancia($total,$idwork); // Registrar constancia ?>
     
     <br>
 

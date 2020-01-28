@@ -50,7 +50,7 @@ if ($vistasR == "./views/content/reporte-view.php"){
             // Comprobar inicio de sesión
             require_once './controllers/loginController.php';
             $lc = new loginController;
-            if (!isset($_SESSION['user'])) {
+            if( !isset($_SESSION['user']) && !isset($_SESSION['tokextranet'])){
                 $lc->cerrar_session(); // Redirigir al login si no se ha iniciado sesión
             }
             ///////////////////////////////
