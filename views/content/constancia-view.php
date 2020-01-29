@@ -29,6 +29,12 @@ if ($_SESSION['id_user']) {
     // Datos de pago del trabajador
     $pay = $class->get_data_pay_workers($idwork);
 
+    // Obtener total pagado sin efectuar el bucle
+    $pago = array_sum(array_column($pay,'sum'));
+
+    // Registrar constancia y obtener el codigo de la misma
+    $codigo = $class->registrar_constancia($pago,$idwork);
+
     ob_start();
         require_once './views/content/htmlConstancia.php';
     $html = ob_get_clean();

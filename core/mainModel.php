@@ -86,7 +86,7 @@
 
         protected function codigo_aleatorio($length){
 
-            $permitted = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+            $permitted = "123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
             $total_caracteres = strlen($permitted);
 

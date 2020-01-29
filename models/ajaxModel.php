@@ -500,7 +500,7 @@ class ajaxModel extends mainModel{
         $result = parent::conectar()->prepare($sql);
         $result->bindValue(":user",$_SESSION['id_user'], PDO::PARAM_INT);
         $result->bindValue(":idwork",$idwork, PDO::PARAM_INT);
-        $result->bindValue(":fecha",date("Y-m-d"), PDO::PARAM_STR);
+        $result->bindValue(":fecha",date("Y-m-d h:i:s a"), PDO::PARAM_STR);
         $result->bindValue(":monto",$datos[0], PDO::PARAM_INT);
         $result->bindValue(":codigo",$datos[1], PDO::PARAM_STR);
         $result->execute();

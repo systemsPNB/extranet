@@ -10,6 +10,9 @@ Sistema de extranet CPNB
 7- Contador de descargas de constancias
 8- Preparar servidor
 9- Agregar validaciones extra en busqueda de trabajadores en la vista de administrador
+10- Vista de cambiar contraseña al iniciar el sistema por primera vez
+11- cerrar sesion al cerrar pestaña
+12- el código de la constancia no se genera a la primera vez, pero si en adelante
 
 ---------------- Listo ---------------------
 1- Código aleatorio para cada constancia
