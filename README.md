@@ -35,3 +35,8 @@ root 87654321
 Nueva configuración server
 User: sistemas
 pass: 87654321
+
+postgresql servidor
+user: postgres
+pass: extranet-systems-cpnb
+pass pgadmin4: extranet-cpnb
