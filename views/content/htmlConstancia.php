@@ -114,17 +114,49 @@
 
         </tr>
 
+        <?php $total = 0; $sueldo = 0; ?>
 
-        <?php $total = 0; foreach ($pay as $value){ ?>
+        <?php foreach ($pay as $value){ ?>
 
-            <tr>
+            <?php if($value[0]=='0028'){ $sueldo += $value[2]; continue; ?>
 
-                <td style="text-align: left; width: 300px;"> <?=$value[0];?> </td>
-                <td style="text-align: center; width: 300px;"> <?= number_format($value[1],2);?> </td>
-                
-            </tr>
+                <tr>
+                    <td style="text-align: left; width: 300px;">
+                        <?=$value[1]; ?>
+                    </td>
 
-        <?php $total += $value[1]; } ?>
+                    <td style="text-align: center; width: 300px;">
+                        <?= number_format($value[2],2);?>
+                    </td>
+                </tr>
+
+            <?php }elseif($value[0]=='0001'){ $value[1]; $sueldo += $value[2]; ?>
+
+                <tr>
+                    <td style="text-align: left; width: 300px;">
+                        <?=$value[1]; ?>
+                    </td>
+
+                    <td style="text-align: center; width: 300px;">
+                        <?= number_format($sueldo,2);?>
+                    </td>
+                </tr>
+
+            <?php }else{ ?>
+
+                <tr>
+                    <td style="text-align: left; width: 300px;">
+                        <?=$value[1]; ?>
+                    </td>
+
+                    <td style="text-align: center; width: 300px;">
+                        <?= number_format($value[2],2);?>
+                    </td>
+                </tr>
+
+            <?php } ?>
+
+        <?php $total += $value[2]; } ?>
         
         <tr>
 
@@ -141,10 +173,6 @@
         </tr>
 
     </table>
-
-    <?php
-       // $codigo = $class->registrar_constancia($total,$idwork); // Registrar constancia
-    ?>
     
     <br>
 
@@ -153,11 +181,9 @@
         200.000,00) mensuales.
     </p>
 
-
     <p style="text-align: justify;">
         Constancia que se expide a solicitud de parte interesada, en Caracas a los <?= date('d') . " dias del mes de " . ajaxController::get_mes($mes) . " de " . date('Y')."."; ?>
     </p>
-
 
     <img class="firma" src="./views/img/firma1.png">
 

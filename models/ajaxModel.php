@@ -426,10 +426,10 @@ class ajaxModel extends mainModel{
             
         }
 
-        $sql = "SELECT descripcion, SUM(monto_asigna) FROM historicoquincena hq
+        $sql = "SELECT c.cod_concepto, descripcion, SUM(monto_asigna) FROM historicoquincena hq
         INNER JOIN conceptotipopersonal ctp ON (hq.id_concepto_tipo_personal = ctp.id_concepto_tipo_personal)
         INNER JOIN concepto c ON (ctp.id_concepto = c.id_concepto)
-        WHERE id_trabajador = :id_trabajador AND anio = :anio AND mes = :mes AND monto_asigna > 0 AND c.cod_concepto IN ('0001','0010','0011','0014','0028','0061','0063','0401','0410','0411','0412','0413','0414','0420','0421','0422','0423','0424','0425','0426','0427','0428','0429','0512','0522','0523','0524','0525','0526','0527','0528','0529','0530','0531','0532','0533','0534','0535','0536','0537','0538','0539','0540','0541','0542','0543','0544','0545','0546','0547','0548','0549','0550','0551','0552','0553','0554','0555','0556','0557','0558','0559','0560','0561','0562','0563','0564','0565','0566','0567','4000','4013') GROUP BY descripcion ORDER BY descripcion";
+        WHERE id_trabajador = :id_trabajador AND anio = :anio AND mes = :mes AND monto_asigna > 0 AND c.cod_concepto IN ('0001','0010','0011','0014','0028','0061','0063','0401','0410','0411','0412','0413','0414','0420','0421','0422','0423','0424','0425','0426','0427','0428','0429','0512','0522','0523','0524','0525','0526','0527','0528','0529','0530','0531','0532','0533','0534','0535','0536','0537','0538','0539','0540','0541','0542','0543','0544','0545','0546','0547','0548','0549','0550','0551','0552','0553','0554','0555','0556','0557','0558','0559','0560','0561','0562','0563','0564','0565','0566','0567','4000','4013') GROUP BY c.cod_concepto, descripcion ORDER BY descripcion";
 
         /*
         0001    SUELDO BASICO
