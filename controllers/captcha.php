@@ -1,6 +1,6 @@
 <?php
   
-$permitted_chars = '12545678abcdefghjkBCDEFGHJKLMNPRSTUVWXYZ';
+$permitted_chars = '12545678abcdefghjklmnopqrstuvwxyz';
   
 function generate_string($input, $strength = 10) {
     $input_length = strlen($input);

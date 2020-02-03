@@ -148,7 +148,7 @@ class ajaxController extends ajaxModel{
     // Obtener datos del trabajador para mostrar en el arc y constancia de trabajo
     public function get_data_pay_workers($id_trabajador){
 
-        switch (date('m')) {
+        switch(date('m')){
             case '01':
                 $mes = 1;
                 break;

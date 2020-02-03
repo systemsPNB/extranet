@@ -387,24 +387,49 @@ class ajaxModel extends mainModel{
         
     }
 
+    // Determinar última quincena
+    protected function get_last_quincena(){
+        $sql = "SELECT MAX(semana_quincena) FROM historicoquincena WHERE anio = :anio AND mes = :mes LIMIT 1";
+        $result = parent::conexion2()->prepare($sql);
+        $result->bindValue(":anio",date('Y'),PDO::PARAM_INT);
+        $result->bindValue(":mes",date('m'),PDO::PARAM_INT);
+        $result->execute();
+        if($result->rowCount()>0){
+            $quincena = $result->fetchColumn(0);
+            unset($conexion);
+            unset($result);
+            return $quincena;
+        }else{
+            $result->errorInfo();
+        }
+        
+    }
+
+    // Obtener total de conceptos pagados al trabajador en la constancia de trabajo
     protected function get_data_pay_workers_model($datos){
 
         $id_trabajador = $datos[0];
+        $quincena = self::get_last_quincena();
         $mes = $datos[1];
-
         $anio = date('Y');
 
-        if ($mes == 1){ // Si el mes actual es enero, en la constancia se mostraran los datos de diciembre del año anterior
+        if($mes == 1 && $quincena ==1){
+            /* Si el mes actual es enero, y la última quincena del mes actual es 1 
+            en la constancia se mostraran los datos de diciembre del año anterior */
             $mes = 12;
             $anio = $anio-1;
-        } else { // Si es cualquier mes distinto de enero, se le restara 1, para que siempre muestre el total pagado el mes anterior, no el actual, debiado a las quincenas
+            
+        }elseif($quincena == '1'){
+            /* Si la última quincena es 1, se tomarán los datos de pago del mes anterior */
+            $anio = date('Y');
             $mes = $mes-1;
+            
         }
-        
-        $sql = "SELECT DISTINCT descripcion, SUM(monto_asigna) FROM historicoquincena hq
+
+        $sql = "SELECT descripcion, SUM(monto_asigna) FROM historicoquincena hq
         INNER JOIN conceptotipopersonal ctp ON (hq.id_concepto_tipo_personal = ctp.id_concepto_tipo_personal)
         INNER JOIN concepto c ON (ctp.id_concepto = c.id_concepto)
-        WHERE id_trabajador = :id_trabajador AND anio = :anio AND mes = :mes AND monto_asigna > 0 AND c.cod_concepto IN ('0061','0001','0530','0553','0529','0552','0528','0551','0527','0550','0526','0549','0548','0525','0547','0524','0546','0523','0544','0567','0566','0543','0565','0542','0564','0541','0545','0522','0563','0540','0562','0539','0561','0538','0560','0537','0559','0536','0558','0535','0557','0534','0556','0533','0555','0532','0554','0531','0424','0423','0422','0421','0414','0420','0413','0412','0411','0410','4000') GROUP BY descripcion ORDER BY descripcion";
+        WHERE id_trabajador = :id_trabajador AND anio = :anio AND mes = :mes AND monto_asigna > 0 AND c.cod_concepto IN ('0001','0010','0011','0014','0028','0061','0063','0401','0410','0411','0412','0413','0414','0420','0421','0422','0423','0424','0425','0426','0427','0428','0429','0512','0522','0523','0524','0525','0526','0527','0528','0529','0530','0531','0532','0533','0534','0535','0536','0537','0538','0539','0540','0541','0542','0543','0544','0545','0546','0547','0548','0549','0550','0551','0552','0553','0554','0555','0556','0557','0558','0559','0560','0561','0562','0563','0564','0565','0566','0567','4000','4013') GROUP BY descripcion ORDER BY descripcion";
 
         /*
         0001    SUELDO BASICO
@@ -474,14 +499,13 @@ class ajaxModel extends mainModel{
         $result->bindValue(":mes", $mes, PDO::PARAM_INT);
         $result->execute();
 
-        if ($result->rowCount()>0){
-
-            return $result->fetchAll();
-
+        if($result->rowCount()>0){
+            $datos = $result->fetchAll();
+            unset($conexion);
+            unset($result);
+            return $datos;
         }else{
-
             return $result->errorInfo();
-
         }
 
     }
