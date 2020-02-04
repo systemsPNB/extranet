@@ -73,11 +73,9 @@
 
     </page_footer>
 
-    <br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br>
 
     <h1 style="text-align:center"> C O N S T A N C I A </h1>
-
-    <br>
 
     <?php
     switch ($datos[4]){
@@ -104,7 +102,7 @@
         N°. <strong><?=$datos[0];?></strong>, desempeñando en la actualidad el cargo de <strong><?=$datos[3];?></strong>, presta sus servicios en este organismo desde el <strong><?=$datos[2];?></strong>, con una asignacion mensual discriminada de la siguiente manera:
     </p>
 
-    <br><br>
+    <br>
 
     <table style="width: 500px; text-align: center;">
         <tr>
@@ -114,49 +112,125 @@
 
         </tr>
 
-        <?php $total = 0; $sueldo = 0; ?>
+        <?php            
+            function html($concepto,$valor){
 
-        <?php foreach ($pay as $value){ ?>
+                echo "
+                    <tr>
+                        <td style='text-align: left; width: 300px;'>
+                            ".$concepto."
+                        </td>
+                        
+                        <td style='text-align: center; width: 300px;'>
+                            ".number_format($valor,2)."
+                        </td>
+                    </tr>
+                ";
+            }
+            
+            $total = 0;
+            $sueldoBasico = 0;
+            $complemento = 0;
+            $primaHijo = 0;
+            $primaProf = 0;
+            $primaAntig = 0;
 
-            <?php if($value[0]=='0028'){ $sueldo += $value[2]; continue; ?>
+            foreach ($pay as $value){
 
-                <tr>
-                    <td style="text-align: left; width: 300px;">
-                        <?=$value[1]; ?>
-                    </td>
+                if($value->descripcion == 'DIFERENCIA SUELDO BASICO'){
+                    $sueldoBasico = $value->sum;
+                    $total += $value->sum;
 
-                    <td style="text-align: center; width: 300px;">
-                        <?= number_format($value[2],2);?>
-                    </td>
-                </tr>
+                    continue;
+                }
 
-            <?php }elseif($value[0]=='0001'){ $value[1]; $sueldo += $value[2]; ?>
+                if($value->descripcion == 'SUELDO BASICO'){
+                    $sueldoBasico += $value->sum;
+                    $valor = $sueldoBasico;
+                    $concepto = "SUELDO BASICO (prueba)";
+                    html($concepto,$valor);
+                    $total += $value->sum;
+                    continue;
+                }
 
-                <tr>
-                    <td style="text-align: left; width: 300px;">
-                        <?=$value[1]; ?>
-                    </td>
+                if($value->descripcion == 'COMPLEMENTO'){
+                    $complemento = $value->sum;
+                    $total += $value->sum;
 
-                    <td style="text-align: center; width: 300px;">
-                        <?= number_format($sueldo,2);?>
-                    </td>
-                </tr>
+                    continue;
+                }
+                
+                if($value->descripcion == 'DIFERENCIA COMPLEMENTO'){
+                    $complemento += $value->sum;
+                    $valor = $complemento;
+                    $concepto = "COMPLEMENTO (prueba)";
+                    html($concepto,$valor);
+                    $total += $value->sum;
+                    continue;
+                }
 
-            <?php }else{ ?>
+                if($value->descripcion == 'DIFERENCIA PRIMA POR HIJO'){
+                    $primaHijo = $value->sum;
+                    $total += $value->sum;
 
-                <tr>
-                    <td style="text-align: left; width: 300px;">
-                        <?=$value[1]; ?>
-                    </td>
+                    continue;
+                }
 
-                    <td style="text-align: center; width: 300px;">
-                        <?= number_format($value[2],2);?>
-                    </td>
-                </tr>
+                if($value->descripcion == 'PRIMA POR HIJO'){
+                    $primaHijo += $value->sum;
+                    $valor = $primaHijo;
+                    $concepto = "PRIMA POR HIJO (prueba)";
+                    html($concepto,$valor);
+                    $total += $value->sum;
+                    continue;
+                }
 
-            <?php } ?>
+                if($value->descripcion == 'DIFERENCIA  PRIMA PROFESIONALIZACION'){
+                    $primaProf = $value->sum;
+                    $total += $value->sum;
 
-        <?php $total += $value[2]; } ?>
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA PROFESIONALIZACION 12%'){
+                    $primaProf += $value->sum;
+                    $total += $value->sum;
+
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA PROFESIONALIZACION 20%'){
+                    $primaProf += $value->sum;
+                    $valor = $primaProf;
+                    $concepto = "PRIMA PROFESIONALIZACION (prueba)";
+                    html($concepto,$valor);
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 23 AÑOS EN ADELANTE (60%)'){
+                    $primaAntig += $value->sum;
+                    $total += $value->sum;
+
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 23 AÑOS O + (30%)'){
+                    $primaAntig += $value->sum;
+                    $valor = $primaAntig;
+                    $concepto = "PRIMA ANTIGÜEDAD (prueba)";
+                    html($concepto,$valor);
+                    $total += $value->sum;
+                    continue;
+                }
+
+                html($value->descripcion,$value->sum);
+
+                $total += $value->sum;
+                
+            }
+            
+        ?>
         
         <tr>
 
@@ -174,7 +248,6 @@
 
     </table>
     
-    <br>
 
     <p style="text-align: justify;">
         Percibe por beneficio de alimentación la cantidad de doscientos mil bolivares exactos (Bs.
