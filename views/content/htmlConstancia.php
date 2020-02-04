@@ -73,11 +73,9 @@
 
     </page_footer>
 
-    <br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br>
 
     <h1 style="text-align:center"> C O N S T A N C I A </h1>
-
-    <br>
 
     <?php
     switch ($datos[4]){
@@ -104,7 +102,7 @@
         N°. <strong><?=$datos[0];?></strong>, desempeñando en la actualidad el cargo de <strong><?=$datos[3];?></strong>, presta sus servicios en este organismo desde el <strong><?=$datos[2];?></strong>, con una asignacion mensual discriminada de la siguiente manera:
     </p>
 
-    <br><br>
+    <br>
 
     <table style="width: 500px; text-align: center;">
         <tr>
@@ -114,49 +112,432 @@
 
         </tr>
 
-        <?php $total = 0; $sueldo = 0; ?>
+        <?php            
+            function html($concepto,$valor){
 
-        <?php foreach ($pay as $value){ ?>
+                echo "
+                    <tr>
+                        <td style='text-align: left; width: 300px;'>
+                            ".$concepto."
+                        </td>
+                        
+                        <td style='text-align: center; width: 300px;'>
+                            ".number_format($valor,2)."
+                        </td>
+                    </tr>
+                ";
+            }
+            
+            $total = 0;
+            $sueldoBasico = 0;
+            $complemento = 0;
+            $primaHijo = 0;
+            $primaProf = 0;
+            $primaAntig = 0;
 
-            <?php if($value[0]=='0028'){ $sueldo += $value[2]; continue; ?>
+            foreach ($pay as $value){
+                // ------------------------  Sueldo basico
+                if($value->descripcion == 'DIFERENCIA SUELDO BASICO'){
+                    $sueldoBasico = $value->sum;
+                    $total += $value->sum;
+                    continue;
+                }
 
-                <tr>
-                    <td style="text-align: left; width: 300px;">
-                        <?=$value[1]; ?>
-                    </td>
+                if($value->descripcion == 'SUELDO BASICO'){
+                    $sueldoBasico += $value->sum;
+                    $concepto = "SUELDO BASICO (prueba)";
+                    html($concepto,$sueldoBasico);
+                    $total += $value->sum;
+                    continue;
+                }
+                // ------------------------  Sueldo basico
 
-                    <td style="text-align: center; width: 300px;">
-                        <?= number_format($value[2],2);?>
-                    </td>
-                </tr>
+                // ------------------------  Complemento
+                if($value->descripcion == 'COMPLEMENTO'){
+                    $complemento = $value->sum;
+                    $total += $value->sum;
+                    continue;
+                }
+                
+                if($value->descripcion == 'DIFERENCIA COMPLEMENTO'){
+                    $complemento += $value->sum;
+                    $concepto = "COMPLEMENTO (prueba)";
+                    html($concepto,$complemento);
+                    $total += $value->sum;
+                    continue;
+                }
+                // ------------------------  Complemento
 
-            <?php }elseif($value[0]=='0001'){ $value[1]; $sueldo += $value[2]; ?>
+                // ------------------------  Prima por hijo
+                if($value->descripcion == 'DIFERENCIA PRIMA POR HIJO'){
+                    $primaHijo = $value->sum;
+                    $total += $value->sum;
+                    continue;
+                }
 
-                <tr>
-                    <td style="text-align: left; width: 300px;">
-                        <?=$value[1]; ?>
-                    </td>
+                if($value->descripcion == 'PRIMA POR HIJO'){
+                    $primaHijo += $value->sum;
+                    $concepto = "PRIMA POR HIJO (prueba)";
+                    html($concepto,$primaHijo);
+                    $total += $value->sum;
+                    continue;
+                }
+                // ------------------------  Prima por hijo
 
-                    <td style="text-align: center; width: 300px;">
-                        <?= number_format($sueldo,2);?>
-                    </td>
-                </tr>
+                // ------------------------  Prima profesionalización
+                if($value->descripcion == 'DIFERENCIA  PRIMA PROFESIONALIZACION'){
+                    $primaProf = $value->sum;
+                    $total += $value->sum;
+                    continue;
+                }
 
-            <?php }else{ ?>
+                if($value->descripcion == 'PRIMA PROFESIONALIZACION 12%'){
+                    $primaProf += $value->sum;
+                    $total += $value->sum;
+                    continue;
+                }
 
-                <tr>
-                    <td style="text-align: left; width: 300px;">
-                        <?=$value[1]; ?>
-                    </td>
+                if($value->descripcion == 'PRIMA PROFESIONALIZACION 20%'){
+                    $primaProf += $value->sum;
+                    $valor = $primaProf;
+                    $concepto = "PRIMA PROFESIONALIZACION (prueba)";
+                    html($concepto,$primaProf);
+                    $total += $value->sum;
+                    continue;
+                }
+                // ------------------------  Prima profesionalización
 
-                    <td style="text-align: center; width: 300px;">
-                        <?= number_format($value[2],2);?>
-                    </td>
-                </tr>
+                // ------------------------  Prima por antiguedad
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 1 AÑO (1%)'){
+                    $primaAntig += $value->sum;
+                    $total += $value->sum;
+                    continue;
+                }
 
-            <?php } ?>
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 1 AÑO (2%)'){
+                    $primaAntig += $value->sum;
+                    $concepto = "PRIMA DE ANTIGÜEDAD 1 AÑO (2%) (prueba)";
+                    html($concepto,$primaAntig);
+                    $total += $value->sum;
+                    continue;
+                }
 
-        <?php $total += $value[2]; } ?>
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 2 AÑOS (2%)'){
+                    $primaAntig += $value->sum;
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 2 AÑOS (4%)'){
+                    $primaAntig += $value->sum;
+                    $concepto = "PRIMA DE ANTIGÜEDAD 2 AÑOS (4%) (prueba)";
+                    html($concepto,$primaAntig);
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 3 AÑOS (3%)'){
+                    $primaAntig += $value->sum;
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 3 AÑOS (6%)'){
+                    $primaAntig += $value->sum;
+                    $concepto = "PRIMA DE ANTIGÜEDAD 3 AÑOS (6%) (prueba)";
+                    html($concepto,$primaAntig);
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 4 AÑOS (4%)'){
+                    $primaAntig += $value->sum;
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 4 AÑOS (8%)'){
+                    $primaAntig += $value->sum;
+                    $concepto = "PRIMA DE ANTIGÜEDAD 4 AÑOS (8%) (prueba)";
+                    html($concepto,$primaAntig);
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 5 AÑOS (10%)'){
+                    $primaAntig += $value->sum;
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 5 AÑOS (5%)'){
+                    $primaAntig += $value->sum;
+                    $concepto = "PRIMA DE ANTIGÜEDAD 5 AÑOS (10%) (prueba)";
+                    html($concepto,$primaAntig);
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 6 AÑOS (12%)'){
+                    $primaAntig += $value->sum;
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 6 AÑOS (6,2%)'){
+                    $primaAntig += $value->sum;
+                    $concepto = "PRIMA DE ANTIGÜEDAD 6 AÑOS (12%) (prueba)";
+                    html($concepto,$primaAntig);
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 7 AÑOS (15%)'){
+                    $primaAntig += $value->sum;
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 7 AÑOS (7,4%)'){
+                    $primaAntig += $value->sum;
+                    $concepto = "PRIMA DE ANTIGÜEDAD 7 AÑOS (15%) (prueba)";
+                    html($concepto,$primaAntig);
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 8 AÑOS (17%)'){
+                    $primaAntig += $value->sum;
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 8 AÑOS (8,6%)'){
+                    $primaAntig += $value->sum;
+                    $concepto = "PRIMA DE ANTIGÜEDAD 8 AÑOS (17%) (prueba)";
+                    html($concepto,$primaAntig);
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 9 AÑOS (20%)'){
+                    $primaAntig += $value->sum;
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 9 AÑOS (9,8%)'){
+                    $primaAntig += $value->sum;
+                    $concepto = "PRIMA DE ANTIGÜEDAD 9 AÑOS (20%) (prueba)";
+                    html($concepto,$primaAntig);
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 10 AÑOS (11%)'){
+                    $primaAntig += $value->sum;
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 10 AÑOS (22%)'){
+                    $primaAntig += $value->sum;
+                    $concepto = "PRIMA DE ANTIGÜEDAD 10 AÑOS (22%) (prueba)";
+                    html($concepto,$primaAntig);
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 11 AÑOS (12,4%)'){
+                    $primaAntig += $value->sum;
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 11 AÑOS (25%)'){
+                    $primaAntig += $value->sum;
+                    $concepto = "PRIMA DE ANTIGÜEDAD 11 AÑOS (25%) (prueba)";
+                    html($concepto,$primaAntig);
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 12 AÑOS (13,8%)'){
+                    $primaAntig += $value->sum;
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 12 AÑOS (28%)'){
+                    $primaAntig += $value->sum;
+                    $concepto = "PRIMA DE ANTIGÜEDAD 12 AÑOS (28%) (prueba)";
+                    html($concepto,$primaAntig);
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 13 AÑOS (15,2%)'){
+                    $primaAntig += $value->sum;
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 13 AÑOS (30%)'){
+                    $primaAntig += $value->sum;
+                    $concepto = "PRIMA DE ANTIGÜEDAD 13 AÑOS (30%) (prueba)";
+                    html($concepto,$primaAntig);
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 14 AÑOS (16,6%)'){
+                    $primaAntig += $value->sum;
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 14 AÑOS (33%)'){
+                    $primaAntig += $value->sum;
+                    $concepto = "PRIMA DE ANTIGÜEDAD 14 AÑOS (33%) (prueba)";
+                    html($concepto,$primaAntig);
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 15 AÑOS (18%)'){
+                    $primaAntig += $value->sum;
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 15 AÑOS (36%)'){
+                    $primaAntig += $value->sum;
+                    $concepto = "PRIMA DE ANTIGÜEDAD 15 AÑOS (36%) (prueba)";
+                    html($concepto,$primaAntig);
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 16 AÑOS (19,6%)'){
+                    $primaAntig += $value->sum;
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 16 AÑOS (39%)'){
+                    $primaAntig += $value->sum;
+                    $concepto = "PRIMA DE ANTIGÜEDAD 16 AÑOS (39%) (prueba)";
+                    html($concepto,$primaAntig);
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 17 AÑOS (21,2%)'){
+                    $primaAntig += $value->sum;
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 17 AÑOS (42%)'){
+                    $primaAntig += $value->sum;
+                    $concepto = "PRIMA DE ANTIGÜEDAD 17 AÑOS (42%) (prueba)";
+                    html($concepto,$primaAntig);
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 18 AÑOS (22,8%)'){
+                    $primaAntig += $value->sum;
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 18 AÑOS (46%)'){
+                    $primaAntig += $value->sum;
+                    $concepto = "PRIMA DE ANTIGÜEDAD 18 AÑOS (46%) (prueba)";
+                    html($concepto,$primaAntig);
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 19 AÑOS (24,4%)'){
+                    $primaAntig += $value->sum;
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 19 AÑOS (49%)'){
+                    $primaAntig += $value->sum;
+                    $concepto = "PRIMA DE ANTIGÜEDAD 19 AÑOS (49%) (prueba)";
+                    html($concepto,$primaAntig);
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 20 AÑOS (26%)'){
+                    $primaAntig += $value->sum;
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 20 AÑOS (52%)'){
+                    $primaAntig += $value->sum;
+                    $concepto = "PRIMA DE ANTIGÜEDAD 20 AÑOS (52%) (prueba)";
+                    html($concepto,$primaAntig);
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 21 AÑOS (27,8%)'){
+                    $primaAntig += $value->sum;
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 21 AÑOS (56%)'){
+                    $primaAntig += $value->sum;
+                    $concepto = "PRIMA DE ANTIGÜEDAD 21 AÑOS (56%) (prueba)";
+                    html($concepto,$primaAntig);
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 22 AÑOS (29,6%)'){
+                    $primaAntig += $value->sum;
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 22 AÑOS (59%)'){
+                    $primaAntig += $value->sum;
+                    $concepto = "PRIMA DE ANTIGÜEDAD 22 AÑOS (59%) (prueba)";
+                    html($concepto,$primaAntig);
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 23 AÑOS EN ADELANTE (60%)'){
+                    $primaAntig += $value->sum;
+                    $total += $value->sum;
+                    continue;
+                }
+                
+                if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 23 AÑOS O + (30%)'){
+                    $primaAntig += $value->sum;
+                    $concepto = "PRIMA ANTIGÜEDAD (prueba)";
+                    html($concepto,$primaAntig);
+                    $total += $value->sum;
+                    continue;
+                }
+                // ------------------------  Prima por antiguedad
+
+                html($value->descripcion,$value->sum);
+
+                $total += $value->sum;
+                
+            }
+            
+        ?>
         
         <tr>
 
@@ -174,7 +555,6 @@
 
     </table>
     
-    <br>
 
     <p style="text-align: justify;">
         Percibe por beneficio de alimentación la cantidad de doscientos mil bolivares exactos (Bs.
