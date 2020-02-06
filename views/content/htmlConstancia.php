@@ -12,6 +12,10 @@
             position: relative;
             left: 135px;
         }
+
+        .logocpnb{
+            height: 80px;
+        }
     </style>
 
     <page_header> <!-- Cabecera -->
@@ -46,7 +50,7 @@
                 </td>
 
                 <td style="text-align: right; ">
-                    <img src="./views/img/pnb.jpg" alt="">
+                    <img src="./views/img/pnb.jpg" alt="LOGO CPNB" class="logocpnb">
                 </td>
 
             </tr>
@@ -75,7 +79,7 @@
 
     <br><br><br><br><br><br><br>
 
-    <h1 style="text-align:center"> C O N S T A N C I A </h1>
+    <h1 style="text-align:center"> C O N S T A N C I A (PRUEBA) </h1>
 
     <?php
     switch ($datos[4]){
@@ -200,7 +204,67 @@
                 if($value->descripcion == 'PRIMA PROFESIONALIZACION 20%'){
                     $primaProf += $value->sum;
                     $valor = $primaProf;
-                    $concepto = "PRIMA PROFESIONALIZACION (prueba)";
+                    $concepto = "PRIMA PROFESIONALIZACION 20% (prueba)";
+                    html($concepto,$primaProf);
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA PROFESIONALIZACION 14%'){
+                    $primaProf += $value->sum;
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA PROFESIONALIZACION 30%'){
+                    $primaProf += $value->sum;
+                    $valor = $primaProf;
+                    $concepto = "PRIMA PROFESIONALIZACION 30% (prueba)";
+                    html($concepto,$primaProf);
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA PROFESIONALIZACION 16%'){
+                    $primaProf += $value->sum;
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA PROFESIONALIZACION 40%'){
+                    $primaProf += $value->sum;
+                    $valor = $primaProf;
+                    $concepto = "PRIMA PROFESIONALIZACION 40% (prueba)";
+                    html($concepto,$primaProf);
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA PROFESIONALIZACION 18%'){
+                    $primaProf += $value->sum;
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA PROFESIONALIZACION 50%'){
+                    $primaProf += $value->sum;
+                    $valor = $primaProf;
+                    $concepto = "PRIMA PROFESIONALIZACION 50% (prueba)";
+                    html($concepto,$primaProf);
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA PROFESIONALIZACION 20%'){
+                    $primaProf += $value->sum;
+                    $total += $value->sum;
+                    continue;
+                }
+
+                if($value->descripcion == 'PRIMA PROFESIONALIZACION 60%'){
+                    $primaProf += $value->sum;
+                    $valor = $primaProf;
+                    $concepto = "PRIMA PROFESIONALIZACION 60% (prueba)";
                     html($concepto,$primaProf);
                     $total += $value->sum;
                     continue;
@@ -208,6 +272,12 @@
                 // ------------------------  Prima profesionalización
 
                 // ------------------------  Prima por antiguedad
+                if($value->descripcion == 'DIFERENCIA PRIMA POR ANTIGUEDAD'){
+                    $primaAntig += $value->sum;
+                    $total += $value->sum;
+                    continue;
+                }
+
                 if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 1 AÑO (1%)'){
                     $primaAntig += $value->sum;
                     $total += $value->sum;
@@ -524,7 +594,7 @@
                 
                 if($value->descripcion == 'PRIMA DE ANTIGÜEDAD 23 AÑOS O + (30%)'){
                     $primaAntig += $value->sum;
-                    $concepto = "PRIMA ANTIGÜEDAD (prueba)";
+                    $concepto = "PRIMA ANTIGÜEDAD 23 AÑOS O + (prueba)";
                     html($concepto,$primaAntig);
                     $total += $value->sum;
                     continue;
@@ -562,7 +632,7 @@
     </p>
 
     <p style="text-align: justify;">
-        Constancia que se expide a solicitud de parte interesada, en Caracas a los <?= date('d') . " dias del mes de " . ajaxController::get_mes($mes) . " de " . date('Y')."."; ?>
+        Constancia que se expide a solicitud de parte interesada, en Caracas a los <?= date('d') . " dias del mes de " .  strtolower(ajaxController::get_mes($mes)) . " de " . date('Y')."."; ?>
     </p>
 
     <img class="firma" src="./views/img/firma1.png">

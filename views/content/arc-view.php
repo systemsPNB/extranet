@@ -34,7 +34,7 @@ if(isset($_SESSION['nivel'])){
             // Cabecera de página
             function Header(){
 
-                $this->Image('views/img/pnb.jpg',15,8,15);
+                $this->Image('views/img/pnb.jpg',15,8,15,18);
                 // Arial bold 15
                 $this->SetFont('Arial', '', 10);
                 // $this->Ln();
