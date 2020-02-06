@@ -8,11 +8,9 @@ Sistema de extranet CPNB
 5- Verificar que la constancia de trabajo sea con el total del monto del mes anterior al que se consulte
 6- Contador de visitas
 7- Contador de descargas de constancias
-8- Preparar servidor
 9- Agregar validaciones extra en busqueda de trabajadores en la vista de administrador
 10- Vista de cambiar contraseña al iniciar el sistema por primera vez
 11- cerrar sesion al cerrar pestaña
-12- el código de la constancia no se genera a la primera vez, pero si en adelante
 
 ---------------- Listo ---------------------
 1- Código aleatorio para cada constancia
@@ -25,6 +23,8 @@ Sistema de extranet CPNB
 8- Quitar editar nombres en myaccount
 9- Registrar ip de quien se conecta al extranet
 10- Agregar bitacora de los usuarios
+12- el código de la constancia no se genera a la primera vez, pero si en adelante
+8- Preparar servidor
 
 usuario: extranet-192
 pass: 12345678
