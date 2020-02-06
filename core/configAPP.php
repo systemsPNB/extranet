@@ -1,9 +1,9 @@
 <?php
 // Conexión 1---------------------------------------------------------------------------------------------------------------------
 const SERVER = "localhost options='--client_encoding=UTF8'";
-const DBNAME = 'extranet';
+const DBNAME = 'extranet_db';
 const DBUSER = 'postgres';
-const DBPASS = 'sistemas-cpnb';
+const DBPASS = 'extranet-systems-cpnb';
 const DBPORT = 5432; // Solo para base de datos PostgreSQL
 // Para Bases de datos MySQL
 // const SGBD = 'mysql:host='.SERVER.';dbname='.DBNAME;
