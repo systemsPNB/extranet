@@ -155,13 +155,14 @@ if(isset($_SESSION['nivel'])){
         $pdf->AddPage();
         $pdf->SetFont('Arial', 'B', 10);
 
+        $acumulado = 0;
+
         foreach ($registros as $value){
 
             if($value[0]==1){
                 $acumulado = $value[1];
             }else{
                 $acumulado += $value[1];
-                // number_format(,2);
             }
 
             $mes = $datos->get_mes($value[0]);
@@ -176,7 +177,16 @@ if(isset($_SESSION['nivel'])){
             $pdf->Cell(25,10,'0.00',0,1,'C',0);   // acumulado retención
         }
 
-        $pdf->Ln(3);
+        // var_dump(count($registros)); die();
+
+        switch(count($registros)){
+            case '1':
+            $pdf->Ln(114);
+                break;
+            case '12':
+            $pdf->Ln(3);
+                break;
+        }
 
         foreach ($deducciones as $deduccion){
 
