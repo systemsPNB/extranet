@@ -25,13 +25,3 @@ Sistema de extranet CPNB
 8- Quitar editar nombres en myaccount
 9- Registrar ip de quien se conecta al extranet
 10- Agregar bitacora de los usuarios
-
-usuario: extranet-192
-pass: 12345678
-192.168.8.192
-
-root 87654321
-
-Nueva configuración server
-User: sistemas
-pass: 87654321
