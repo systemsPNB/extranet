@@ -60,11 +60,13 @@
                                     <div class="form-inline">
 
                                         <label>Seleccionar reporte: </label>
-
                                         <select class="custom-select ml-3" id="soli">
                                             <option value="">Seleccione</option>
                                             <option value="1">ARC</option>
-                                            <option value="2">Constancia</option>
+
+                                            <?php if($_SESSION['constancia'] == 'Si'): ?>
+                                                <option value="2">Constancia</option>
+                                            <?php endif; ?>
                                             <!-- <option value="3">Recibo Pago</option> -->
                                         </select>
 
@@ -108,7 +110,11 @@
                                                 <select class="custom-select ml-3" id="soli">
                                                     <option value="">Seleccione</option>
                                                     <option value="1">ARC</option>
-                                                    <option value="2">Constancia</option>
+
+                                                    <?php if($_SESSION['constancia'] == 'Si'): ?>
+                                                        <option value="2">Constancia</option>
+                                                    <?php endif; ?>
+
                                                     <!-- <option value="3">Recibo Pago</option> -->
                                                 </select>
         

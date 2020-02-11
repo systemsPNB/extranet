@@ -25,7 +25,7 @@ if ($_SESSION['id_user']) {
     
     // Datos personales del trabajador
     $datos = $class->get_data_workers($idwork);
-
+    
     // Datos de pago del trabajador
     $pay = $class->get_data_pay_workers($idwork);
 
