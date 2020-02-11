@@ -23,3 +23,5 @@ Sistema de extranet CPNB
 8- Quitar editar nombres en myaccount
 9- Registrar ip de quien se conecta al extranet
 10- Agregar bitacora de los usuarios
+11- Limitar constancias de arc a tipo de personal 22 (Honorarios profesionales)
+12- Mejora de la presentación de los montos, se coloco los separadores de mil con (.) y los decimales con (,)
