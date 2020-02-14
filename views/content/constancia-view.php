@@ -13,23 +13,25 @@ if ($_SESSION['id_user']) {
 
     $url = explode("/", $_GET['views']);
 
-    // Detectar rol del usuario
-    if($_SESSION['nivel']==1){
-        /* Si es administrador, el parametro del id_trabajador no viene cifrado */
-        $idwork = $url[1];
-        
-    } else {
-        /* Si el rol es normal el parametro del id_trabajador esta cifrado y debe desencriptarse con esta función */
-        $idwork = $class->desencriptar_idwork($url[1]);
-    }
+    // Desencriptar id del trabajador
+    $idwork = $class->desencriptar_idwork($url[1]);
     
     // Datos personales del trabajador
     $datos = $class->get_data_workers($idwork);
+
+    if(!$datos){
+        echo "<script> alert('No se encontraron datos'); </script>";
+        echo "<script> window.close(); </script>";
+    }
     
     // Datos de pago del trabajador
     $pay = $class->get_data_pay_workers($idwork);
 
-    // var_dump($pay); die();
+    if($pay==false){
+        echo "<script> alert('No se encontraron datos'); </script>";
+        echo "<script> window.close(); </script>";
+    }
+
     // Obtener total pagado sin efectuar el bucle
     $pago = array_sum(array_column($pay,'sum'));
 

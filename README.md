@@ -11,6 +11,9 @@ Sistema de extranet CPNB
 9- Agregar validaciones extra en busqueda de trabajadores en la vista de administrador
 10- Vista de cambiar contraseña al iniciar el sistema por primera vez
 11- cerrar sesion al cerrar pestaña
+12- crear usuario para area tecnica y colocar el del señor amoroso en id_rol = 3
+13- descargar constancia en vez de vista en pantalla en id_rol = 3
+14- Conectarse a la base de datos 192.168.8.192
 
 ---------------- Listo ---------------------
 1- Código aleatorio para cada constancia

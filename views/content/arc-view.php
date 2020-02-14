@@ -16,7 +16,7 @@ if(!$idwork){ // Si el parametro no viene cifrado tomar la url normal
 }
 
 // para foreach con los montos mensuales
-$registros = $datos->reporte_arc($idwork); //var_dump($registros); die();
+$registros = $datos->reporte_arc($idwork);
 
 // Cerrar ventana del arc si no existen registros para mostrar
 if($registros==null){
