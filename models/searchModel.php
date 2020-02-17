@@ -28,7 +28,7 @@ class searchModel extends mainModel{
 
         }else{
 
-            return $result->errorInfo();
+            return false;
 
         }
         

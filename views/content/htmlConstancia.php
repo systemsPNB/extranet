@@ -107,7 +107,7 @@
                         </td>
                         
                         <td style='text-align: center; width: 300px;'>
-                            ".number_format($valor,2)."
+                            ".number_format($valor,2,',','.')."
                         </td>
                     </tr>
                 ";
@@ -600,7 +600,7 @@
         <tr>
 
             <th style="text-align: center; width: 300px;">TOTAL ASIGNACIÓN</th>
-            <th style="text-align: center; width: 300px;"> <?= number_format($total,2); ?> </th>
+            <th style="text-align: center; width: 300px;"> <?= number_format($total,2,',','.'); ?> </th>
 
         </tr>
 

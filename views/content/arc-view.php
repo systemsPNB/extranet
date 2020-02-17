@@ -18,6 +18,13 @@ if(!$idwork){ // Si el parametro no viene cifrado tomar la url normal
 // para foreach con los montos mensuales
 $registros = $datos->reporte_arc($idwork);
 
+// Cerrar ventana del arc si no existen registros para mostrar
+if($registros==null){
+    $anioarc =  date('Y') - 1;
+    echo "<script> alert('No tienes registros correspondientes al año ".$anioarc."'); </script>";
+    echo "<script> window.close(); </script>";
+}
+
 // Para forech con las deducciones anuales
 $deducciones = $datos->deducciones_reporte_arc($idwork);
 
@@ -170,11 +177,11 @@ if(isset($_SESSION['nivel'])){
             $pdf->SetX(27);
             $pdf->SetFont('Arial', '', 10);
             $pdf->Cell(30,10,$mes,0,0,'L',0); // Mes
-            $pdf->Cell(30,10,number_format($value[1],2),0,0,'C',0); // Sueldo mensual
-            $pdf->Cell(20,10,'0.00',0,0,'C',0);   // %isrl
-            $pdf->Cell(25,10,'0.00',0,0,'C',0);   // retención mensual
-            $pdf->Cell(25,10,number_format($acumulado,2),0,0,'C',0);   // acumulado devengado
-            $pdf->Cell(25,10,'0.00',0,1,'C',0);   // acumulado retención
+            $pdf->Cell(30,10,number_format($value[1],2,',','.'),0,0,'C',0); // Sueldo mensual
+            $pdf->Cell(20,10,'0,00',0,0,'C',0);   // %isrl
+            $pdf->Cell(25,10,'0,00',0,0,'C',0);   // retención mensual
+            $pdf->Cell(25,10,number_format($acumulado,2,',','.'),0,0,'C',0);   // acumulado devengado
+            $pdf->Cell(25,10,'0,00',0,1,'C',0);   // acumulado retención
         }
 
         // var_dump(count($registros)); die();
@@ -207,7 +214,7 @@ if(isset($_SESSION['nivel'])){
             }
 
             $pdf->Cell(35, 5, $concepto, 0, 0, 'L');
-            $pdf->Cell(45, 5, number_format($deduccion[1],2), 0, 1, 'C');
+            $pdf->Cell(45, 5, number_format($deduccion[1],2,',','.'), 0, 1, 'C');
 
         }
 

@@ -18,7 +18,6 @@ class loginModel extends mainModel{
         if ($result->rowCount()>0){
 
             $row = $result->fetch();
-            // session_start(['name' => 'NSW']);
             $_SESSION['id_user'] = $row['id_user'];
             $_SESSION['user'] = $row['nombre'];
             $_SESSION['nivel'] = $row['id_rol'];
@@ -29,6 +28,17 @@ class loginModel extends mainModel{
             // Registrar bitacora
             $datos = array(date("Y-m-d h:i:s a"),$_SERVER['REMOTE_ADDR'],$row['id_user']);
             $_SESSION['bitacora'] = parent::reg_bitacora($datos);
+
+            $sql = "SELECT id_tipo_personal FROM trabajador WHERE id_trabajador = ".$row['id_trabajador']." AND estatus = 'A' LIMIT 1";
+            $typePersonal = parent::consulta_simple(2,$sql,1);
+
+            if($typePersonal[0]==22){
+                $_SESSION['constancia'] = "No";
+            }else{
+                $_SESSION['constancia'] = "Si";
+            }
+
+
 
             // unset($result);
             // unset($conexion);
