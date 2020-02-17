@@ -121,13 +121,15 @@
             $result->execute();
 
             if ($type==1){
-
-                return $result->fetch();
-
+                $datos = $result->fetch();
+                unset($conexion);
+                unset($result);
+                return $datos;
             }else{
-
-                return $result->fetchAll();
-
+                $datos = $result->fetchAll();
+                unset($conexion);
+                unset($result);
+                return $datos;
             }
                 
         }

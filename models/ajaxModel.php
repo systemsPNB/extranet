@@ -506,7 +506,7 @@ class ajaxModel extends mainModel{
             unset($result);
             return $datos;
         }else{
-            return $result->errorInfo();
+            return false;
         }
 
     }

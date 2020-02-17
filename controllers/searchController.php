@@ -10,7 +10,12 @@ class searchController extends searchModel{
 
         $datos = parent::search_model($civ);
 
-        return json_encode($datos);
+        if ($datos == false) {
+            return false;
+        }else{
+            $datos['id_trabajador'] = parent::encriptar($datos[0]);
+            return json_encode($datos);
+        }
 
     }
 

@@ -191,7 +191,8 @@ $(function () {
 	// Buscar trabajador para posteriormente generar sus reportes
 	const buscar = document.getElementById('search_work');
 
-	if (buscar) {
+	if(buscar){
+		document.getElementById('res_search_idwork').value = '';
 		buscar.addEventListener('click', () => {
 			let cedula = document.getElementById('civ_work').value;
 			$.ajax({
@@ -199,22 +200,27 @@ $(function () {
 				type: "post",
 				url: "../controllers/searchController.php",
 				data: { civ : cedula },
-				success: function (r){
+				success: function(r){
 
-					r = JSON.parse(r);
-					$(".data_works").show();
-					document.getElementById('res_search_name').innerHTML = `<b>${r.nombres}</b>`;
-					document.getElementById('res_search_civ').innerHTML = `<b>${r.cedula}</b>`;
-					document.getElementById('res_search_idwork').value = r.id_trabajador;
+					if(r == false){
+
+						alertify.alert('Error','No se encuentran datos del funcionario. Verifique que haya ingresado el número de cédula corectamente. Si persiste el error es posible que el funcionario se encuentre con estatus en situación de inactivo o suspendido');
+
+					}else{
+
+						r = JSON.parse(r);
+						$(".data_works").show();
+						document.getElementById('res_search_name').innerHTML = `<b>${r.nombres}</b>`;
+						document.getElementById('res_search_civ').innerHTML = `<b>${r.cedula}</b>`;
+						document.getElementById('res_search_idwork').value = r.id_trabajador;
+
+					}
 
 				}
 
 			});
 		});
 	}
-
-
-	
 
 }); // Fin de Jquery
 

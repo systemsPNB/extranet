@@ -11,6 +11,9 @@ Sistema de extranet CPNB
 9- Agregar validaciones extra en busqueda de trabajadores en la vista de administrador
 10- Vista de cambiar contraseña al iniciar el sistema por primera vez
 11- cerrar sesion al cerrar pestaña
+12- crear usuario para area tecnica y colocar el del señor amoroso en id_rol = 3
+13- descargar constancia en vez de vista en pantalla en id_rol = 3
+14- Conectarse a la base de datos 192.168.8.192
 
 ---------------- Listo ---------------------
 1- Código aleatorio para cada constancia
@@ -23,20 +26,5 @@ Sistema de extranet CPNB
 8- Quitar editar nombres en myaccount
 9- Registrar ip de quien se conecta al extranet
 10- Agregar bitacora de los usuarios
-12- el código de la constancia no se genera a la primera vez, pero si en adelante
-8- Preparar servidor
-
-usuario: extranet-192
-pass: 12345678
-192.168.8.192
-
-root 87654321
-
-Nueva configuración server
-User: sistemas
-pass: 87654321
-
-postgresql servidor
-user: postgres
-pass: extranet-systems-cpnb
-pass pgadmin4: extranet-cpnb
+11- Limitar constancias de arc a tipo de personal 22 (Honorarios profesionales)
+12- Mejora de la presentación de los montos, se coloco los separadores de mil con (.) y los decimales con (,)
