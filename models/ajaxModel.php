@@ -410,6 +410,7 @@ class ajaxModel extends mainModel{
 
         $id_trabajador = $datos[0];
         $quincena = self::get_last_quincena();
+        $dia = date('d');
         $mes = $datos[1];
         $anio = date('Y');
 
@@ -419,7 +420,7 @@ class ajaxModel extends mainModel{
             $mes = 12;
             $anio = $anio-1;
             
-        }elseif($quincena == '1'){
+        }elseif($dia <=24){
             /* Si la última quincena es 1, se tomarán los datos de pago del mes anterior */
             $anio = date('Y');
             $mes = $mes-1;
@@ -429,7 +430,7 @@ class ajaxModel extends mainModel{
         $sql = "SELECT DISTINCT c.cod_concepto, descripcion, SUM(monto_asigna) FROM historicoquincena hq
         INNER JOIN conceptotipopersonal ctp ON (hq.id_concepto_tipo_personal = ctp.id_concepto_tipo_personal)
         INNER JOIN concepto c ON (ctp.id_concepto = c.id_concepto)
-        WHERE id_trabajador = :id_trabajador AND anio = :anio AND mes = :mes AND monto_asigna > 0 AND c.cod_concepto IN ('4013','4000','0567','0566','0565','0564','0563','0562','0561','0560','0559','0558','0557','0556','0555','0554','0553','0552','','0551','0550','0549','0548','0547','0546','0545','0544','0543','0542','0541','0540','0539','0538','0537','0536','0535','0534','0533','0532','0531','0530','0529','0528','0527','0526','0525','0524','0523','0522','0512','0501','0429','0428','0427','0426','0425','0424','0423','0422','0421','0420','0414','0413','0412','0411','0410','0401','0063','0061','0028','0014','0011','0010','0001') GROUP BY c.cod_concepto, descripcion ORDER BY cod_concepto";
+        WHERE id_trabajador = :id_trabajador AND anio = :anio AND mes = :mes AND monto_asigna > 0 AND c.cod_concepto IN ('4013','4000','0567','0566','0565','0564','0563','0562','0561','0560','0559','0558','0557','0556','0555','0554','0553','0552','0551','0550','0549','0548','0547','0546','0545','0544','0543','0542','0541','0540','0539','0538','0537','0536','0535','0534','0533','0532','0531','0530','0529','0528','0527','0526','0525','0524','0523','0522','0512','0501','0429','0428','0427','0426','0425','0424','0423','0422','0421','0420','0414','0413','0412','0411','0410','0401','0063','0061','0028','0014','0011','0010','0001') GROUP BY c.cod_concepto, descripcion ORDER BY cod_concepto";
 
         /*
         0001    SUELDO BASICO
