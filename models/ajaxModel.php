@@ -387,43 +387,23 @@ class ajaxModel extends mainModel{
         
     }
 
-    // Determinar última quincena
-    protected function get_last_quincena(){
-        $sql = "SELECT MAX(semana_quincena) FROM historicoquincena WHERE anio = :anio AND mes = :mes LIMIT 1";
-        $result = parent::conexion2()->prepare($sql);
-        $result->bindValue(":anio",date('Y'),PDO::PARAM_INT);
-        $result->bindValue(":mes",date('m'),PDO::PARAM_INT);
-        $result->execute();
-        if($result->rowCount()>0){
-            $quincena = $result->fetchColumn(0);
-            unset($conexion);
-            unset($result);
-            return $quincena;
-        }else{
-            $result->errorInfo();
-        }
-        
-    }
-
     // Obtener total de conceptos pagados al trabajador en la constancia de trabajo
     protected function get_data_pay_workers_model($datos){
 
         $id_trabajador = $datos[0];
-        $quincena = self::get_last_quincena();
+        $dia = date('d');
         $mes = $datos[1];
         $anio = date('Y');
 
-        if($mes == 1 && $quincena ==1){
-            /* Si el mes actual es enero, y la última quincena del mes actual es 1 
+        if($mes == 1 && $dia <=24){
+            /* Si el mes actual es enero, y el día actual es menor o igual a 24 
             en la constancia se mostraran los datos de diciembre del año anterior */
             $mes = 12;
             $anio = $anio-1;
-            
-        }elseif($quincena == '1'){
-            /* Si la última quincena es 1, se tomarán los datos de pago del mes anterior */
+        }elseif($dia <=24){
+            /* Si el día actual es menor o igual a 24, se tomarán los datos de pago del mes anterior */
             $anio = date('Y');
             $mes = $mes-1;
-            
         }
 
         $sql = "SELECT DISTINCT c.cod_concepto, descripcion, SUM(monto_asigna) FROM historicoquincena hq
