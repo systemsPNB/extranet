@@ -82,9 +82,7 @@
     <h1 style="text-align:center"> C O N S T A N C I A  </h1>
 
     <p style="text-align: justify;">
-        Quien suscribe, DIRECTOR (A) DE LA OFICINA DE GESTIÓN HUMANA (E) del CUERPO DE
-        POLICÍA NACIONAL BOLIVARIANA, hace constar que el ciudadano (a) <strong><?=$datos[1];?></strong>, titular de la cédula de identidad
-        N°. V.-<strong><?=$datos[0];?></strong>, presta sus servicios en este organismo desde el <strong><?= date("d-m-Y", strtotime($datos[2]));?></strong>, en calidad de <strong><?=$datos[3];?></strong>, con una remuneración mensual discriminada de la siguiente manera:
+        Quien suscribe, DIRECTOR (A) DE LA OFICINA DE GESTIÓN HUMANA (E) del CUERPO DE POLICÍA NACIONAL BOLIVARIANA, hace constar que el ciudadano (a) <?=$datos[1]?>, titular de la cédula de identidad N°. V.- <?=$datos[0]?>, presta sus servicios en este organismo desde el  <?= date("d-m-Y", strtotime($datos[2]))?>, en calidad de  <?=$datos[3]?>, con una remuneración mensual discriminada de la siguiente manera:
     </p>
 
     <br>
