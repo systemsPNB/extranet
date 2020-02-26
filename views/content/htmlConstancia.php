@@ -99,9 +99,14 @@
 
         </tr>
 
-        <?php            
-            // Cargar foreach con los conceptos pagados al trabajador
-            require_once './controllers/conceptos.php';            
+        <?php
+        $dia = date('d');
+        // Cargar foreach con los conceptos pagados al trabajador
+        if($dia<=24){
+            require_once './controllers/conceptos.php';
+        }else{
+            require_once './controllers/conceptos1.php';
+        }
         ?>
         
         <tr>
@@ -120,7 +125,6 @@
 
     </table>
     
-
     <p style="text-align: justify;">
         Percibe por beneficio de alimentación la cantidad de doscientos mil bolivares exactos (Bs.
         200.000,00) mensuales.
