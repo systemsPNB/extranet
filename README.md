@@ -8,10 +8,8 @@ Sistema de extranet CPNB
 5- Verificar que la constancia de trabajo sea con el total del monto del mes anterior al que se consulte
 6- Contador de visitas
 7- Contador de descargas de constancias
-9- Agregar validaciones extra en busqueda de trabajadores en la vista de administrador
 10- Vista de cambiar contraseña al iniciar el sistema por primera vez
 11- cerrar sesion al cerrar pestaña
-12- crear usuario para area tecnica y colocar el del señor amoroso en id_rol = 3
 13- descargar constancia en vez de vista en pantalla en id_rol = 3
 14- Conectarse a la base de datos 192.168.8.192
 
@@ -28,3 +26,5 @@ Sistema de extranet CPNB
 10- Agregar bitacora de los usuarios
 11- Limitar constancias de arc a tipo de personal 22 (Honorarios profesionales)
 12- Mejora de la presentación de los montos, se coloco los separadores de mil con (.) y los decimales con (,)
+13- crear usuario para area tecnica y colocar el del señor amoroso en id_rol = 3
+14- Agregar validaciones extra en busqueda de trabajadores en la vista de administrador

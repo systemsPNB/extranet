@@ -8,6 +8,7 @@ session_start(['name' => 'NSW']);
 if ($_SESSION['id_user']) {
 
     require_once './controllers/ajaxController.php';
+    
     $class = new ajaxController;
     $mes = date('m');
 
@@ -15,9 +16,25 @@ if ($_SESSION['id_user']) {
 
     // Desencriptar id del trabajador
     $idwork = $class->desencriptar_idwork($url[1]);
+
+    function html($concepto,$valor){
+
+        echo "
+            <tr>
+                <td style='text-align: left; width: 300px;'>
+                    ".$concepto."
+                </td>
+                
+                <td style='text-align: center; width: 300px;'>
+                    ".number_format($valor,2,',','.')."
+                </td>
+            </tr>
+        ";
+    }
     
     // Datos personales del trabajador
     $datos = $class->get_data_workers($idwork);
+    
 
     if(!$datos){
         echo "<script> alert('No se encontraron datos'); </script>";
