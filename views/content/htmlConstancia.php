@@ -100,13 +100,14 @@
         </tr>
 
         <?php
-        $dia = date('d');
         // Cargar foreach con los conceptos pagados al trabajador
+        require_once './controllers/conceptos1.php';
+        /* $dia = date('d');
         if($dia<=24){
-            require_once './controllers/conceptos.php';
+            require_once './controllers/conceptos1.php';
         }else{
             require_once './controllers/conceptos1.php';
-        }
+        } */
         ?>
         
         <tr>
