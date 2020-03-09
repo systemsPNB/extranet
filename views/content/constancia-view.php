@@ -42,7 +42,7 @@ if ($_SESSION['id_user']) {
     }
     
     // Datos de pago del trabajador
-    $pay = $class->get_data_pay_workers($idwork);
+    $pay = $class->get_data_pay_workers($idwork); //var_dump($pay); die();
 
     if($pay==false){
         echo "<script> alert('No se encontraron datos'); </script>";
