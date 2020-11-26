@@ -127,8 +127,8 @@
     </table>
     
     <p style="text-align: justify;">
-        Percibe por beneficio de alimentación la cantidad de doscientos mil bolivares exactos (Bs.
-        200.000,00) mensuales.
+        Percibe por beneficio de alimentación la cantidad de cuatrocientos mil bolivares exactos (Bs.
+        400.000,00) mensuales.
     </p>
 
     <p style="text-align: justify;">

@@ -364,7 +364,7 @@ class ajaxModel extends mainModel{
     // Obtener datos del trabajador para mostrar en el arc y constancia
     protected function get_data_workers_model($idwork){
 
-        $sql = "SELECT p.cedula, primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido AS nombres, fecha_ingreso, descripcion_cargo, sexo, id_trabajador FROM personal p
+        $sql = "SELECT p.cedula, COALESCE(primer_nombre,'')||' '||COALESCE(segundo_nombre,'')||' '||COALESCE(primer_apellido,'')||' '||COALESCE(segundo_apellido,'') AS nombres, fecha_ingreso, descripcion_cargo, sexo, id_trabajador FROM personal p
         INNER JOIN trabajador t ON (p.id_personal = t.id_personal)
         INNER JOIN cargo c ON (t.id_cargo = c.id_cargo)
         WHERE id_trabajador = :idwork";
