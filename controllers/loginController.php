@@ -5,22 +5,15 @@ class loginController extends loginModel{
 
     // Iniciar sesión
     public function login_controlador(){
-
-        session_start(['name' => 'NSW']);
-
-        if($_SESSION['captcha_text'] === $_POST['captcha_challenge']){
-
+        session_start(['name' => 'AppExtranet']);
+        //if($_SESSION['captcha_text'] === $_POST['captcha_challenge']){
             $user = mainModel::limpiar_cadena($_POST['user']);
             $pass = mainModel::limpiar_cadena($_POST['pass']);
             $pass = mainModel::encriptar($pass);
             return loginModel::login_modelo($user,$pass);
-
-        }else{
-
+       // }else{
             return "<script> alertify.warning('Error de captcha'); </script>";
-            
-        }
-        
+       // }
     }
 
     // Registrar primer usuario
@@ -60,12 +53,9 @@ class loginController extends loginModel{
 
     // Cerrar sesión
     public function cerrar_session(){
-
-        session_start(['name' => 'NSW']);
+        session_start(['name' => 'AppExtranet']);
         session_unset();
         session_destroy();
         return header('Location: '.SERVERURL.'login/');
-
     }
-
 }

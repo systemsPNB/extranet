@@ -3,7 +3,7 @@
 require_once './vendor/autoload.php';
 use Spipu\Html2Pdf\Html2Pdf;
 
-session_start(['name' => 'NSW']);
+session_start(['name' => 'AppExtranet']);
 
 if ($_SESSION['id_user']) {
 

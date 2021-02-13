@@ -1,7 +1,7 @@
 <?php
 require_once '../core/mainModel.php';
 
-session_start(['name' => 'NSW']);
+session_start(['name' => 'AppExtranet']);
 
 class usersModel extends mainModel{
 

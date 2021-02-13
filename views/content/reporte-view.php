@@ -1,6 +1,6 @@
 <?php
 
-session_start(['name' => 'NSW']);
+session_start(['name' => 'AppExtranet']);
 
 if(isset($_SESSION['nivel'])){
 

@@ -2,7 +2,7 @@
 
 require_once '../core/mainModel.php';
 
-session_start(['name' => 'NSW']);
+session_start(['name' => 'AppExtranet']);
 
     class TrabajadorModel  extends mainModel
     {

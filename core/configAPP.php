@@ -1,6 +1,6 @@
 <?php
 // Conexión 1---------------------------------------------------------------------------------------------------------------------
-const SERVER = "localhost options='--client_encoding=UTF8'";
+const SERVER = "190.202.37.62 options='--client_encoding=UTF8'";
 const DBNAME = 'extranet_db';
 const DBUSER = 'postgres';
 const DBPASS = 'extranet-systems-cpnb';

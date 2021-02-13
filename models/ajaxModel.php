@@ -59,7 +59,7 @@ class ajaxModel extends mainModel{
     // Registrar users
     protected function registrar_usuarios_modelo($datos){
 
-        session_start(['name' => 'NSW']);
+        session_start(['name' => 'AppExtranet']);
 
         $sql = "INSERT INTO users (civ, nombre, id_status, reg_date, reg_user, id_rol, pass) VALUES (:username, :nombres, :estatus, :fecha, :user, :rol, :pass)";
 
@@ -95,15 +95,11 @@ class ajaxModel extends mainModel{
         $result->bindValue(":current_pass", $old_pass, PDO::PARAM_STR);
         $result->bindValue(":user", $_SESSION['id_user'], PDO::PARAM_INT);
 
-        $result->execute();
-
-        $result_boolean = ($result->rowCount() > 0);
-
-        unset($result);
-        unset($conexion);
-
-        return $result_boolean;
-
+        if($result->execute()){
+            return true;
+        }else{
+            return $result->errorInfo();
+        }
     }
 
     // Editar nombre en vista myaccount
@@ -311,7 +307,14 @@ class ajaxModel extends mainModel{
         $sql = "SELECT mes, sum(monto_asigna) FROM historicoquincena hq
         INNER JOIN conceptotipopersonal ctp ON (hq.id_concepto_tipo_personal = ctp.id_concepto_tipo_personal)
         INNER JOIN concepto c ON (ctp.id_concepto = c.id_concepto)
-        WHERE id_trabajador = :idwork AND anio = :anio AND c.cod_concepto IN ('0001','0410','0411','0412','0413','0414','0522','0523','0524','0525','0526','0527','0528','0529','0530','0531','0532','0533','0534','0535','0536','0537','0538','0539','0540','0541','0542','0543','0544','1500','1600','4000','0500') GROUP BY mes ORDER BY mes";
+        WHERE id_trabajador = :idwork AND anio = :anio AND c.cod_concepto IN 
+        ('0001','0028','0161','0401','0410','0411','1500','0412','0413','0420','0421','0422','0423','0424','0501','0523','0524','0525','0526','0527','0528','0529','0530','0531','0532','0533','0534','0535','0536','0537','0538','0539','0540','0541','0542','0543','0544','0545','0546','0547','0548','0549','0550','0551','0552','0553','0554','0555','4013','0556','0557','0558','0559','0560','0561','0562','0563','0564','0565','0566','0567','1600','3001','3002','3120','4000','4300','3400','3500','3600') GROUP BY mes ORDER BY mes";
+
+        /*$sql = "SELECT mes, sum(monto_asigna) FROM historicoquincena hq
+        INNER JOIN conceptotipopersonal ctp ON (hq.id_concepto_tipo_personal = ctp.id_concepto_tipo_personal)
+        INNER JOIN concepto c ON (ctp.id_concepto = c.id_concepto)
+        WHERE id_trabajador = :idwork AND anio = :anio AND c.cod_concepto IN 
+        ('0001','0028','0141','0401','0410','0411','0412','0413','0420','0421','0422','0423','0424','0501','0523','0524','0525','0526','0527','0528','0529','0530','0531','0532','0533','0534','0535','0536','0537','0538','0539','0540','0541','0542','0543','0544','0545','0546','0547','0548','0549','0550','0551','0552','0553','0554','0555','4013','0556','0557','0558','0559','0560','0561','0562','0563','0564','0565','0566','0567','1600','3001','3002','3120','4000','4300','3400','3500','3600') GROUP BY mes ORDER BY mes";*/
 
         $result = parent::conexion2()->prepare($sql);
         $result->bindValue(":idwork", $idwork, PDO::PARAM_INT);

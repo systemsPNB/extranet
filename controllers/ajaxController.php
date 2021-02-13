@@ -40,14 +40,11 @@ class ajaxController extends ajaxModel{
 
     // Actualizar contraseña
     public function actualizar_user_pass_controller($old_pass,$new_pass){
-
         $old_pass = mainModel::limpiar_cadena($old_pass);
         $old_pass = mainModel::encriptar($old_pass);
         $new_pass = mainModel::limpiar_cadena($new_pass);
         $new_pass = mainModel::encriptar($new_pass);
-
         return ajaxModel::actualizar_user_pass_model($old_pass,$new_pass);
-
     }
 
     // Contar usuarios
@@ -260,7 +257,5 @@ if (isset($_POST['frm_user']) && isset($_POST['frm_pass']) && isset($_POST['frm_
 
 // Actualizar contraseña
 if (isset($_POST['current_pass']) && isset($_POST['new_pass'])){
-
     echo ajaxController::actualizar_user_pass_controller($_POST['current_pass'],$_POST['new_pass']);
-
 }

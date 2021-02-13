@@ -46,7 +46,7 @@ $fonts = [
 $string_length = 6;
 $captcha_string = generate_string($permitted_chars, $string_length);
 
-session_start(['name' => 'NSW']);
+session_start(['name' => 'AppExtranet']);
 
 $_SESSION['captcha_text'] = $captcha_string;
  

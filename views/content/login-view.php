@@ -22,13 +22,13 @@
             <p class="help-block">Escribe tú contraseña</p>
         </div>
 
-        <div>
+        <!-- <div>
             <label>Por favor ingrese el texto de la imagen</label>
-            <img src="<?=SERVERURL?>controllers/captcha.php" class="captcha-image" alt="CAPTCHA">
+            <img src="<?//=SERVERURL?>controllers/captcha.php" class="captcha-image" alt="CAPTCHA">
             <i class="icon-refresh2" id="refresh-captcha" title="Cambiar imagen"></i>
             <br>
             <input type="text" class="form-control" name="captcha_challenge" pattern="[A-Za-z1-9]{6}" maxlength="6" placeholder="Escriba aquí el texto de la imagen">
-        </div>
+        </div> -->
 
         <div class="form-group text-center">
             <input type="submit" value="Iniciar sesión" class="btn btn-info mt-2">
@@ -39,20 +39,14 @@
 </div>
 
 <?php
-
-    if(
-        isset($_POST['user']) &&
-        isset($_POST['pass']) &&
-        isset($_POST['captcha_challenge'])
-    ){
+    if(isset($_POST['user']) && isset($_POST['pass'])){
         echo $login->login_controlador();
     }
-
 ?>
 
 <script>
-    var refreshButton = document.getElementById("refresh-captcha");
+    /*var refreshButton = document.getElementById("refresh-captcha");
     refreshButton.onclick = function(){
         document.querySelector(".captcha-image").src = '<?=SERVERURL?>controllers/captcha.php?' + Date.now();
-    }
+    }*/
 </script>

@@ -4,7 +4,7 @@ require_once './controllers/ajaxController.php';
 
 $datos = new ajaxController();
 
-session_start(['name' => 'NSW']);
+session_start(['name' => 'AppExtranet']);
 
 $url = explode("/", $_GET['views']);
 
@@ -61,7 +61,7 @@ if(isset($_SESSION['nivel'])){
                 
                 $this->SetX(70);
 
-                $this->Cell(70, 4, 'PERÍODO 01/01/2019 AL 31/12/2019', 0, 1, 'C');
+                $this->Cell(70, 4, 'PERÍODO 01/01/2020 AL 31/12/2020', 0, 1, 'C');
 
                 $this->Ln();
                 $this->Ln();

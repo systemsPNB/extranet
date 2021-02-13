@@ -46,7 +46,7 @@ if ($vistasR == "./views/content/reporte-view.php"){
             
         else:
 
-            session_start(['name' => 'NSW']);
+            session_start(['name' => 'AppExtranet']);
             // Comprobar inicio de sesión
             require_once './controllers/loginController.php';
             $lc = new loginController;

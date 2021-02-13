@@ -37,18 +37,11 @@ class loginModel extends mainModel{
             }else{
                 $_SESSION['constancia'] = "Si";
             }
-
-
-
             // unset($result);
             // unset($conexion);
-
             return header('Location: '.SERVERURL.'home/');
-
         } else {
-            
             return "<script> alertify.error('Error de usuario o contraseña'); </script>";
-
         }
 
     }
