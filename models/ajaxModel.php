@@ -496,15 +496,12 @@ class ajaxModel extends mainModel{
 
     // Registrar constancia
     protected function registrar_constancia_model($datos){
-
         $sql = "INSERT INTO constancias (id_user,id_trabajador,fecha,monto,codigo) VALUES (:user,:idwork,:fecha,:monto,:codigo)";
-
         if($_SESSION['idwork']==""){
             $idwork = $datos[2];
         }else {
             $idwork = $_SESSION['idwork'];
         }
-
         $result = parent::conectar()->prepare($sql);
         $result->bindValue(":user",$_SESSION['id_user'], PDO::PARAM_INT);
         $result->bindValue(":idwork",$idwork, PDO::PARAM_INT);
@@ -519,58 +516,35 @@ class ajaxModel extends mainModel{
         }else{
             return $result->errorInfo();
         }
-
     }
-
-    /* // Obtener trabajadores desde el sigefirrhh e insertarlos en la tabla usuarios de extranet
+    
+        // Obtener trabajadores desde el sigefirrhh e insertarlos en la tabla usuarios de extranet
     protected function get_workers_for_users_model(){
-
-        $select = "SELECT DISTINCT p.cedula, primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido AS nombres, id_trabajador FROM personal p
-        INNER JOIN trabajador t ON (p.id_personal = t.id_personal)
-        WHERE t.estatus = 'A'";
-
-        $resultSelect = parent::conexion2()->prepare($select);
+        // Descomentar cuando se tenga listo el sql
+        //$sql = "SELECT DISTINCT p.cedula, COALESCE(primer_nombre,'')||' '||COALESCE(segundo_nombre,'')||' '||COALESCE(primer_apellido,'')||' '||COALESCE(segundo_apellido,'') AS nombres, id_trabajador FROM personal p INNER JOIN trabajador t ON (p.id_personal = t.id_personal) WHERE t.estatus = 'A' and id_trabajador > 96682";
+        $resultSelect = parent::conexion2()->prepare($sql);
         $resultSelect->execute();
         $datos = $resultSelect->fetchAll();
         echo "Listo array sigefirrhh";
-        // unset($resultSelect);
-        // unset($conexion);
-
-        // return $datos;
-        // print_r($datos);
-
         $nro = 0;
         foreach ($datos as $value) {
-
             $civ = $value[0];
             $nombres = $value[1];
             $pass = parent::encriptar($civ);
             $fecha = date("Y-m-d");
             $id_trabajador = $value[2];
             
-            $insert = "INSERT INTO users
-            (civ, nombre, id_status, reg_date, reg_user, id_rol, pass, id_trabajador) VALUES 
-            ('".$civ."','".$nombres."',1,'$fecha',1,3,'$pass',$id_trabajador)";
+            $insert = "INSERT INTO users (civ, nombre, id_status, reg_date, reg_user, id_rol, pass, id_trabajador) VALUES ('".$civ."','".$nombres."',1,'$fecha',1,3,'$pass',$id_trabajador)";
             $resultInsert = parent::conectar()->prepare($insert);
             $resultInsert->execute();
-            
             $nro++;
-
             if($resultInsert->rowCount()>0){
-
                 echo $nro."<br>";
-
             }else{
-
                 echo $resultInsert->errorInfo();
-
             }
-            
-    
         }
         return "<br>Listo inserción en extranet";
-        // return $nro;
-
-    } */
+    }
 
 }

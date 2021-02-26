@@ -185,12 +185,10 @@ class ajaxController extends ajaxModel{
 
     }
 
-    /* // Obtener trabajadores desde el sigefirrhh e insertarlos en la tabla usuarios de extranet
+    // Obtener trabajadores desde el sigefirrhh e insertarlos en la tabla usuarios de extranet
     public static function get_workers_for_users(){
-
         return parent::get_workers_for_users_model();
-
-    } */
+    }
 
     // Encriptar idwork en vista home
     public static function encriptar_idwork($idwork){
