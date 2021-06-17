@@ -452,7 +452,7 @@ function graficaHome(datosX1, datosY1, datosX2, datosY2) {
 }
 
 // Cerrar sesión por inactividad
-const inactivityTime = () =>{
+/*const inactivityTime = () =>{
 
 	let t;
 	window.onload = resetTimer;
@@ -470,4 +470,4 @@ const inactivityTime = () =>{
 		t = setTimeout(logout, 300000) // 5 minutos 300000 milisegundos
 	}
 	
-}
+}*/

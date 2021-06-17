@@ -67,7 +67,7 @@ if ($vistasR == "./views/content/reporte-view.php"){
         
             <?php
                 require_once './views/layout/navBar.php'; // Barra de navegación
-                echo "<script> inactivityTime(); </script>";
+                //echo "<script> inactivityTime(); </script>";
                 require_once $vistasR; // Vista
                 require_once 'layout/footer.php'; // Pie de página
                 require_once 'content/modals.php'; // Ventanas modal

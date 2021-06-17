@@ -58,13 +58,9 @@ class ajaxModel extends mainModel{
 
     // Registrar users
     protected function registrar_usuarios_modelo($datos){
-
         session_start(['name' => 'AppExtranet']);
-
         $sql = "INSERT INTO users (civ, nombre, id_status, reg_date, reg_user, id_rol, pass) VALUES (:username, :nombres, :estatus, :fecha, :user, :rol, :pass)";
-
         $result = mainModel::conectar()->prepare($sql);
-
         $result->bindValue(":username", $datos['user'], PDO::PARAM_STR);
         $result->bindValue(":nombres", $datos['names'], PDO::PARAM_STR);
         $result->bindValue(":estatus", 1, PDO::PARAM_INT);
@@ -72,16 +68,11 @@ class ajaxModel extends mainModel{
         $result->bindValue(":user", $_SESSION['id_user'], PDO::PARAM_INT);
         $result->bindValue(":rol", $datos['rol'], PDO::PARAM_INT);
         $result->bindValue(":pass", $datos['pass'], PDO::PARAM_STR);
-
-        $result->execute();
-
-        $result_boolean = ($result->rowCount() > 0);
-
-        unset($result);
-        unset($conexion);
-
-        return $result_boolean;
-
+        if($result->execute()){
+            return true;
+        } else {
+            return $result->errorInfo();
+        }
     }
 
     // Actualizar contraseña
@@ -367,9 +358,10 @@ class ajaxModel extends mainModel{
     // Obtener datos del trabajador para mostrar en el arc y constancia
     protected function get_data_workers_model($idwork){
 
-        $sql = "SELECT p.cedula, COALESCE(primer_nombre,'')||' '||COALESCE(segundo_nombre,'')||' '||COALESCE(primer_apellido,'')||' '||COALESCE(segundo_apellido,'') AS nombres, fecha_ingreso, descripcion_cargo, sexo, id_trabajador FROM personal p
+        $sql = "SELECT p.cedula, COALESCE(primer_nombre,'')||' '||COALESCE(segundo_nombre,'')||' '||COALESCE(primer_apellido,'')||' '||COALESCE(segundo_apellido,'') AS nombres, fecha_ingreso, descripcion_cargo, sexo, id_trabajador, t.id_tipo_personal FROM personal p
         INNER JOIN trabajador t ON (p.id_personal = t.id_personal)
         INNER JOIN cargo c ON (t.id_cargo = c.id_cargo)
+        INNER JOIN tipopersonal tp ON (t.id_tipo_personal = tp.id_tipo_personal)
         WHERE id_trabajador = :idwork";
 
         $result = parent::conexion2()->prepare($sql);
@@ -412,7 +404,7 @@ class ajaxModel extends mainModel{
         $sql = "SELECT DISTINCT c.cod_concepto, descripcion, SUM(monto_asigna) FROM historicoquincena hq
         INNER JOIN conceptotipopersonal ctp ON (hq.id_concepto_tipo_personal = ctp.id_concepto_tipo_personal)
         INNER JOIN concepto c ON (ctp.id_concepto = c.id_concepto)
-        WHERE id_trabajador = :id_trabajador AND anio = :anio AND mes = :mes AND monto_asigna > 0 AND c.cod_concepto IN ('4013','4000','0567','0566','0565','0564','0563','0562','0561','0560','0559','0558','0557','0556','0555','0554','0553','0552','0551','0550','0549','0548','0547','0546','0545','0544','0543','0542','0541','0540','0539','0538','0537','0536','0535','0534','0533','0532','0531','0530','0529','0528','0527','0526','0525','0524','0523','0522','0512','0501','0429','0428','0427','0426','0425','0424','0423','0422','0421','0420','0414','0413','0412','0411','0410','0401','0063','0061','0028','0014','0011','0010','0001') GROUP BY c.cod_concepto, descripcion ORDER BY cod_concepto LIMIT 6";
+        WHERE id_trabajador = :id_trabajador AND anio = :anio AND mes = :mes AND monto_asigna > 0 AND c.cod_concepto IN ('0001', '0420', '0421', '0422', '0423', '0424', '0545', '0546', '0547', '0548', '0549', '0550', '0551', '0552', '0553', '0554', '0555', '0556', '0557', '0558', '0559', '0560', '0561', '0562', '0563', '0564', '0565', '0566', '0567', '4000', '0061', '0028', '0401', '0501', '4013', '0063') GROUP BY c.cod_concepto, descripcion ORDER BY cod_concepto";
 
         /*
         0001    SUELDO BASICO
@@ -484,7 +476,7 @@ class ajaxModel extends mainModel{
         $result->execute();
 
         if($result->rowCount()>0){
-            $datos = $result->fetchAll(PDO::FETCH_OBJ);
+            $datos = $result->fetchAll();
             unset($conexion);
             unset($result);
             return $datos;
@@ -521,12 +513,13 @@ class ajaxModel extends mainModel{
         // Obtener trabajadores desde el sigefirrhh e insertarlos en la tabla usuarios de extranet
     protected function get_workers_for_users_model(){
         // Descomentar cuando se tenga listo el sql
-        //$sql = "SELECT DISTINCT p.cedula, COALESCE(primer_nombre,'')||' '||COALESCE(segundo_nombre,'')||' '||COALESCE(primer_apellido,'')||' '||COALESCE(segundo_apellido,'') AS nombres, id_trabajador FROM personal p INNER JOIN trabajador t ON (p.id_personal = t.id_personal) WHERE t.estatus = 'A' and id_trabajador > 96682";
+        //$sql = "SELECT DISTINCT p.cedula, COALESCE(primer_nombre,'')||' '||COALESCE(segundo_nombre,'')||' '||COALESCE(primer_apellido,'')||' '||COALESCE(segundo_apellido,'') AS nombres, id_trabajador FROM personal p INNER JOIN trabajador t ON (p.id_personal = t.id_personal) WHERE t.estatus = 'A' and p.cedula in (21364204, 30031190, 29799650, 28726928, 26798005, 10581443, 27508612, 27829262, 26819328, 29508285, 26715679, 29561242, 29701122, 26435436, 27103537)";
+        
         $resultSelect = parent::conexion2()->prepare($sql);
         $resultSelect->execute();
         $datos = $resultSelect->fetchAll();
+        //return $datos;
         echo "Listo array sigefirrhh";
-        $nro = 0;
         foreach ($datos as $value) {
             $civ = $value[0];
             $nombres = $value[1];
@@ -537,11 +530,8 @@ class ajaxModel extends mainModel{
             $insert = "INSERT INTO users (civ, nombre, id_status, reg_date, reg_user, id_rol, pass, id_trabajador) VALUES ('".$civ."','".$nombres."',1,'$fecha',1,3,'$pass',$id_trabajador)";
             $resultInsert = parent::conectar()->prepare($insert);
             $resultInsert->execute();
-            $nro++;
-            if($resultInsert->rowCount()>0){
-                echo $nro."<br>";
-            }else{
-                echo $resultInsert->errorInfo();
+            if(!$resultInsert->execute()){
+                var_dump( $resultInsert->errorInfo() );
             }
         }
         return "<br>Listo inserción en extranet";

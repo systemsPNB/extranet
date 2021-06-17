@@ -18,13 +18,12 @@ if ($_SESSION['id_user']) {
     $idwork = $class->desencriptar_idwork($url[1]);
 
     function html($concepto,$valor){
-
         echo "
             <tr>
                 <td style='text-align: left; width: 300px;'>
                     ".$concepto."
                 </td>
-                
+            
                 <td style='text-align: center; width: 300px;'>
                     ".number_format($valor,2,',','.')."
                 </td>
@@ -34,7 +33,7 @@ if ($_SESSION['id_user']) {
     
     // Datos personales del trabajador
     $datos = $class->get_data_workers($idwork);
-    
+    //var_dump($datos); die();
 
     if(!$datos){
         echo "<script> alert('No se encontraron datos'); </script>";
@@ -51,6 +50,7 @@ if ($_SESSION['id_user']) {
 
     // Obtener total pagado sin efectuar el bucle
     $pago = array_sum(array_column($pay,'sum'));
+    //var_dump($pago); die();
 
     // Registrar constancia y obtener el codigo de la misma
     $codigo = $class->registrar_constancia($pago,$idwork);

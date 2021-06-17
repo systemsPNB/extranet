@@ -120,16 +120,19 @@
         <tr>
 
             <th style="text-align: center; width: 300px;">TOTAL ASIGNACIÓN</th>
-            <th style="text-align: center; width: 300px;"> <?= number_format($total,2,',','.'); ?> </th>
+            <th style="text-align: center; width: 300px;"> <?= number_format($pago,2,',','.'); ?> </th>
 
         </tr>
 
     </table>
     
-    <p style="text-align: justify;">
-        Percibe por beneficio de alimentación la cantidad de un millón doscientos mil bolivares exactos (Bs.
-        1.200.000,00) mensuales.
-    </p>
+    <?php if($datos['id_tipo_personal'] == 13 || $datos['id_tipo_personal'] == 101 || $datos['id_tipo_personal'] == 141 || $datos['id_tipo_personal'] == 142 || $datos['id_tipo_personal'] == 63 || $datos['id_tipo_personal'] == 62 || $datos['id_tipo_personal'] == 11  || $datos['id_tipo_personal'] == 23) : ?>
+        <p style="text-align: justify;">
+            Percibe por beneficio de alimentación la cantidad de tres millones de bolivares exactos (Bs.
+            3.000.000,00) mensuales.
+        </p>
+    <?php endif; ?>
+
 
     <p style="text-align: justify;">
         Constancia que se expide a solicitud de parte interesada, en Caracas a los <?= date('d') . " dias del mes de " .  strtolower(ajaxController::get_mes($mes)) . " de " . date('Y')."."; ?>

@@ -18,24 +18,18 @@ class ajaxController extends ajaxModel{
 
     // Delete users
     public function eliminar_user_controller($id_user){
-
         return ajaxModel::eliminar_user_model($id_user);
-
     }
 
     // Registrar users
     public function registrar_usuarios_controlador($user,$pass,$name,$rol){
-
         $user = mainModel::limpiar_cadena($user);
         $pass = mainModel::limpiar_cadena($pass);
         $pass = mainModel::encriptar($pass);
         $name = mainModel::limpiar_cadena($name);
         $rol  = mainModel::limpiar_cadena($rol);
-
         $datos = array("user" => $user, "pass" => $pass, "names" => $name, "rol" => $rol);
-
         return ajaxModel::registrar_usuarios_modelo($datos);
-
     }
 
     // Actualizar contraseña
@@ -238,13 +232,10 @@ if (isset($_GET['d_user'])){
 
 // Create users
 if (isset($_POST['frm_user']) && isset($_POST['frm_pass']) && isset($_POST['frm_name']) && isset($_POST['frm_rol'])){
-
     if (empty($_POST['frm_user']) || empty($_POST['frm_pass']) || empty($_POST['frm_name']) || empty($_POST['frm_rol'])){
-
         echo 2; // Formulario incompleto
-        
     }else{
-        
+        //var_dump( ajaxController::registrar_usuarios_controlador($_POST['frm_user'],$_POST['frm_pass'],$_POST['frm_name'],$_POST['frm_rol']) );
         echo ajaxController::registrar_usuarios_controlador($_POST['frm_user'],$_POST['frm_pass'],$_POST['frm_name'],$_POST['frm_rol']);
 
     }

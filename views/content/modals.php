@@ -74,7 +74,7 @@
                                     <div class="form-group">
 
                                         <label for="frm_user">Usuario</label>
-                                        <input type="text" class="form-control" name="frm_user" id="frm_user">
+                                        <input type="text" class="form-control" name="frm_user" id="frm_user" maxlength="8">
 
                                     </div>
                                 </div>
