@@ -6,6 +6,26 @@ foreach ($pay as $value){
         $sueldo_basico_total = $value['sum'];
     }
 
+    if($value['cod_concepto'] == '0010'){ // JUBILACIÓN
+        $jubilacion_nombre = $value['descripcion'];
+        $jubilacion_total = $value['sum'];
+    }
+
+    if($value['cod_concepto'] == '0011'){ // PENSIÓN
+        $pension_nombre = $value['descripcion'];
+        $pension_total = $value['sum'];
+    }
+
+    if($value['cod_concepto'] == '0061'){ // COMPLEMENTO
+        $complemento_nombre = $value['descripcion'];
+        $complemento_total = $value['sum'];
+    }
+
+    if($value['cod_concepto'] == '4000'){ // Prima por hijo
+        $prima_hijo_nombre = $value['descripcion'];
+        $prima_hijo_total = $value['sum'];
+    }
+
     if($value['cod_concepto'] == '0401'){ // Diferencia de prima por profesionalización
         $prima_prof_total = $value['sum'];
     }
@@ -14,26 +34,56 @@ foreach ($pay as $value){
         $prima_antig_total = $value['sum'];
     }
 
-    if($value['cod_concepto'] == '4000'){ // Prima por hijo
-        $prima_hijo_nombre = $value['descripcion'];
-        $prima_hijo_total = $value['sum'];
-    }
-
-    if($value['cod_concepto'] == '0061'){ // COMPLEMENTO
-        $complemento_nombre = $value['descripcion'];
-        $complemento_total = $value['sum'];
-    }
-    
     switch($value['cod_concepto']){
+
+        case '0028': //DIFERENCIA SUELDO BASICO
+            $sueldo_basico_total += $value['sum'];
+            html($sueldo_basico_nombre,$sueldo_basico_total);
+            break;
 
         case '0063': // DIFERENCIA COMPLEMENTO
             $complemento_total += $value['sum'];
             html($complemento_nombre,$complemento_total);
             break;
 
+        case '0147': // DIFERENCIA POR JUBILACIÓN
+            $jubilacion_total += $value['sum'];
+            html($jubilacion_nombre,$jubilacion_total);
+            break;
+
+        case '0149': // DIFERENCIA POR PENSIÓN
+            $pension_total += $value['sum'];
+            html($pension_nombre,$pension_total);
+            break;
+
         case '4013': // Diferencia de prima por hijo
             $prima_hijo_total += $value['sum'];
             html($prima_hijo_nombre,$prima_hijo_total);
+            break;
+
+        case '0420': // 'PRIMA PROFESIONALIZACION 20%'
+            $prima_prof_total += $value['sum'];
+            html($value['descripcion'],$prima_prof_total);
+            break;
+
+        case '0421': // 'PRIMA PROFESIONALIZACION 30%'
+            $prima_prof_total += $value['sum'];
+            html($value['descripcion'],$prima_prof_total);
+            break;
+
+        case '0422': // 'PRIMA PROFESIONALIZACION 40%'
+            $prima_prof_total += $value['sum'];
+            html($value['descripcion'],$prima_prof_total);
+            break;
+
+        case '0423': // 'PRIMA PROFESIONALIZACION 50%'
+            $prima_prof_total += $value['sum'];
+            html($value['descripcion'],$prima_prof_total);
+            break;
+
+        case '0424': // 'PRIMA PROFESIONALIZACION 60%'
+            $prima_prof_total += $value['sum'];
+            html($value['descripcion'],$prima_prof_total);
             break;
 
         case '0545': // PRIMA DE ANTIGÜEDAD 1 AÑO (2%)
@@ -151,35 +201,6 @@ foreach ($pay as $value){
             html($value['descripcion'],$prima_antig_total);
             break;
 
-        case '0420': // 'PRIMA PROFESIONALIZACION 20%'
-            $prima_prof_total += $value['sum'];
-            html($value['descripcion'],$prima_prof_total);
-            break;
-
-        case '0421': // 'PRIMA PROFESIONALIZACION 30%'
-            $prima_prof_total += $value['sum'];
-            html($value['descripcion'],$prima_prof_total);
-            break;
-
-        case '0422': // 'PRIMA PROFESIONALIZACION 40%'
-            $prima_prof_total += $value['sum'];
-            html($value['descripcion'],$prima_prof_total);
-            break;
-
-        case '0423': // 'PRIMA PROFESIONALIZACION 50%'
-            $prima_prof_total += $value['sum'];
-            html($value['descripcion'],$prima_prof_total);
-            break;
-
-        case '0424': // 'PRIMA PROFESIONALIZACION 60%'
-            $prima_prof_total += $value['sum'];
-            html($value['descripcion'],$prima_prof_total);
-            break;
-        
-        case '0028': //DIFERENCIA SUELDO BASICO
-            $sueldo_basico_total += $value['sum'];
-            html($sueldo_basico_nombre,$sueldo_basico_total);
-            break;
     }
     
 }

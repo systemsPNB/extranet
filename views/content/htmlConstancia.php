@@ -100,8 +100,14 @@
         </tr>
 
         <?php
+        // Constancia con diferencias de sueldo
+        //require_once './controllers/conceptos1.php';
+
+        // Constancia normal
+        require_once './controllers/conceptos2.php';
+
+
         // Cargar foreach con los conceptos pagados al trabajador
-        require_once './controllers/conceptos1.php';
         /* $dia = date('d');
         if($dia<=24){
             require_once './controllers/conceptos1.php';

@@ -138,7 +138,6 @@ class ajaxController extends ajaxModel{
 
     // Obtener datos del trabajador para mostrar en el arc y constancia de trabajo
     public function get_data_pay_workers($id_trabajador){
-
         switch(date('m')){
             case '01':
                 $mes = 1;
@@ -168,15 +167,12 @@ class ajaxController extends ajaxModel{
                 $mes = 9;
                 break;
         }
-
         if (date('m') <= 9){
             $mes;
         }else{
             $mes = date('m');
         }
-
         return parent::get_data_pay_workers_model(array($id_trabajador,$mes));
-
     }
 
     // Obtener trabajadores desde el sigefirrhh e insertarlos en la tabla usuarios de extranet
